@@ -243,12 +243,16 @@
     <script>
         function showSection(name) {
             const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
-            sections.forEach(s => document.getElementById(s + '-section')?.classList.add('hidden'));
+            sections.forEach(s => {
+                const el = document.getElementById(s + '-section');
+                if (el) el.classList.add('hidden');
+            });
             
             if (name === 'admin-dashboard' && !isAdmin) {
                 document.getElementById('admin-login-section').classList.remove('hidden');
             } else {
-                document.getElementById(name + '-section')?.classList.remove('hidden');
+                const target = document.getElementById(name + '-section');
+                if (target) target.classList.remove('hidden');
             }
 
             if(name === 'cek-status') renderData();
@@ -302,6 +306,7 @@
         async function renderData() {
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             const tbody = document.getElementById('table-body');
+            if(!tbody) return;
             tbody.innerHTML = (data || []).map(item => `
                 <tr class="border-b text-sm">
                     <td class="p-4 font-bold">${item.nama}</td>
@@ -317,6 +322,7 @@
         async function renderAdminData() {
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             const tbody = document.getElementById('admin-table-body');
+            if(!tbody) return;
             tbody.innerHTML = (data || []).map(item => `
                 <tr class="border-b hover:bg-slate-50 transition">
                     <td class="p-5 flex items-center space-x-3">
@@ -354,131 +360,163 @@
             }
         }
 
-        // FUNGSI CETAK DIPERKUAT: Menggunakan write dengan buffering & timeout
+        // FUNGSI CETAK DIPERBAIKI: Menggunakan pendekatan yang lebih kompatibel
         async function printCard(reg) {
-            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
-            if(!data) return;
-
-            const printWin = window.open('', '_blank');
-            if(!printWin || printWin.closed || typeof printWin.closed=='undefined') { 
-                alert("Popup diblokir! Harap izinkan pop-up di pengaturan browser Anda."); 
-                return; 
+            console.log("Memulai proses cetak untuk:", reg);
+            const { data, error } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
+            
+            if(error || !data) {
+                console.error("Data tidak ditemukan:", error);
+                return;
             }
 
-            const htmlContent = `
+            const printWin = window.open('', '_blank', 'width=800,height=600');
+            
+            if(!printWin) {
+                alert("Pop-up diblokir browser! Klik ikon gembok di URL bar lalu pilih 'Allow Pop-ups'.");
+                return;
+            }
+
+            const cardHtml = `
+                <!DOCTYPE html>
                 <html>
                 <head>
-                    <title>KARTU_PPDB_${data.reg}</title>
+                    <title>CETAK_KARTU_${data.reg}</title>
                     <style>
-                        body { font-family: sans-serif; padding: 20px; display: flex; justify-content: center; background: #fff; }
-                        .card { width: 400px; border: 2px solid #000; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-                        .header { text-align: center; border-bottom: 2px solid #000; margin-bottom: 15px; padding-bottom: 10px; }
-                        .photo { width: 100px; height: 130px; object-fit: cover; border: 1px solid #ccc; float: left; margin-right: 15px; background: #eee; }
-                        .info { overflow: hidden; font-size: 13px; }
-                        .info div { margin-bottom: 8px; }
-                        .label { font-size: 9px; color: #666; font-weight: bold; }
-                        .value { font-weight: bold; font-size: 14px; display: block; }
-                        .status { clear: both; margin-top: 15px; padding: 10px; background: #f0f0f0; text-align: center; font-weight: bold; border-radius: 5px; border: 1px solid #ddd; }
+                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background: #f0f0f0; display: flex; justify-content: center; }
+                        .card { width: 450px; background: white; border: 3px solid #1e3a8a; border-radius: 15px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
+                        .header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
+                        .header h2 { margin: 0; color: #1e3a8a; text-transform: uppercase; font-size: 18px; }
+                        .header p { margin: 5px 0 0; font-size: 11px; font-weight: bold; color: #666; }
+                        .content { display: flex; gap: 20px; }
+                        .photo-box { width: 120px; height: 160px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+                        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
+                        .details { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
+                        .field { display: flex; flex-direction: column; }
+                        .label { font-size: 9px; color: #999; font-weight: bold; text-transform: uppercase; }
+                        .value { font-size: 14px; color: #333; font-weight: 700; word-break: break-word; }
+                        .reg-no { color: #2563eb; font-family: monospace; font-size: 18px; }
+                        .footer-status { margin-top: 20px; padding: 10px; background: #e0f2fe; border-radius: 8px; text-align: center; color: #0369a1; font-weight: bold; font-size: 12px; border: 1px solid #bae6fd; }
+                        @media print {
+                            body { background: white; padding: 0; }
+                            .card { box-shadow: none; border: 2px solid #000; }
+                        }
                     </style>
                 </head>
                 <body>
                     <div class="card">
                         <div class="header">
-                            <h3 style="margin:0">KARTU PESERTA PPDB</h3>
-                            <p style="margin:5px 0; font-size:10px">MA NURUL ULUM BATURSARI</p>
+                            <h2>Kartu Peserta PPDB</h2>
+                            <p>MA NURUL ULUM BATURSARI 2026/2027</p>
                         </div>
-                        <img src="${data.foto || ''}" class="photo" onerror="this.src='https://via.placeholder.com/100x130?text=Foto'">
-                        <div class="info">
-                            <div><span class="label">NO REGISTRASI</span><span class="value" style="color:blue">${data.reg}</span></div>
-                            <div><span class="label">NAMA LENGKAP</span><span class="value">${data.nama.toUpperCase()}</span></div>
-                            <div><span class="label">NISN</span><span class="value">${data.nisn}</span></div>
-                            <div><span class="label">SEKOLAH ASAL</span><span class="value">${data.asal_sekolah}</span></div>
+                        <div class="content">
+                            <div class="photo-box">
+                                <img src="${data.foto || 'https://via.placeholder.com/120x160?text=FOTO'}" onerror="this.src='https://via.placeholder.com/120x160?text=Error'">
+                            </div>
+                            <div class="details">
+                                <div class="field">
+                                    <span class="label">Nomor Registrasi</span>
+                                    <span class="value reg-no">${data.reg}</span>
+                                </div>
+                                <div class="field">
+                                    <span class="label">Nama Lengkap</span>
+                                    <span class="value">${data.nama.toUpperCase()}</span>
+                                </div>
+                                <div class="field">
+                                    <span class="label">NISN</span>
+                                    <span class="value">${data.nisn}</span>
+                                </div>
+                                <div class="field">
+                                    <span class="label">Sekolah Asal</span>
+                                    <span class="value">${data.asal_sekolah}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="status">STATUS: ${data.status.toUpperCase()}</div>
+                        <div class="footer-status">
+                            STATUS PENDAFTARAN: ${data.status.toUpperCase()}
+                        </div>
                     </div>
                     <script>
                         window.onload = function() {
                             setTimeout(function() {
                                 window.print();
-                                // window.close(); // Opsional: tutup otomatis setelah print
-                            }, 500);
+                            }, 800);
                         };
                     <\/script>
                 </body>
                 </html>
             `;
 
-            // Tulis dokumen dengan penanganan error
-            try {
-                printWin.document.open();
-                printWin.document.write(htmlContent);
-                printWin.document.close();
-            } catch (err) {
-                console.error("Gagal menulis ke jendela:", err);
-                printWin.location.reload(); // Paksa reload jika gagal
-            }
+            printWin.document.write(cardHtml);
+            printWin.document.close();
         }
 
         async function printRekap() {
             const { data } = await supabaseClient.from('pendaftar').select('*').order('nama', {ascending: true});
-            if(!data) return;
+            if(!data || data.length === 0) {
+                alert("Tidak ada data untuk direkap.");
+                return;
+            }
 
             const printWin = window.open('', '_blank');
             if(!printWin) { alert("Popup diblokir!"); return; }
 
-            let rows = data.map((item, idx) => `
+            const rows = data.map((item, idx) => `
                 <tr>
                     <td style="text-align:center">${idx+1}</td>
-                    <td style="text-align:center">${item.reg}</td>
+                    <td style="text-align:center; font-family:monospace;">${item.reg}</td>
                     <td>${item.nama.toUpperCase()}</td>
-                    <td>${item.nisn}</td>
+                    <td style="text-align:center">${item.nisn}</td>
                     <td>${item.asal_sekolah}</td>
-                    <td style="text-align:center">${item.status}</td>
+                    <td style="text-align:center; font-weight:bold;">${item.status}</td>
                 </tr>
             `).join('');
 
-            const html = `
+            const rekapHtml = `
                 <html>
                 <head>
-                    <title>REKAP_PENDAFTAR</title>
+                    <title>REKAP_PPDB_2026</title>
                     <style>
-                        body { font-family: sans-serif; padding: 30px; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                        th, td { border: 1px solid #000; padding: 8px; font-size: 11px; }
-                        th { background: #f2f2f2; }
-                        .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
+                        body { font-family: Arial, sans-serif; padding: 40px; }
+                        .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 15px; margin-bottom: 25px; }
+                        .kop h2, .kop h3 { margin: 5px 0; text-transform: uppercase; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                        th, td { border: 1px solid #000; padding: 10px; font-size: 12px; }
+                        th { background: #f0f0f0; text-transform: uppercase; }
+                        .tgl { text-align: right; margin-top: 20px; font-size: 12px; }
                     </style>
                 </head>
                 <body>
-                    <div class="header">
-                        <h2 style="margin:0">DAFTAR PENDAFTAR SISWA BARU</h2>
-                        <h3 style="margin:5px 0">MA NURUL ULUM BATURSARI</h3>
-                        <p style="margin:0; font-size:11px">Tahun Pelajaran 2026/2027</p>
+                    <div class="kop">
+                        <h2>Panitia Penerimaan Peserta Didik Baru</h2>
+                        <h3>MA Nurul Ulum Batursari</h3>
+                        <p>Tahun Pelajaran 2026/2027</p>
                     </div>
+                    <h4 style="text-align:center; text-decoration:underline;">REKAPITULASI DATA PENDAFTAR</h4>
                     <table>
                         <thead>
                             <tr>
-                                <th>NO</th>
-                                <th>REG</th>
-                                <th>NAMA LENGKAP</th>
-                                <th>NISN</th>
-                                <th>ASAL SEKOLAH</th>
-                                <th>STATUS</th>
+                                <th width="30">No</th>
+                                <th width="100">Reg</th>
+                                <th>Nama Lengkap</th>
+                                <th width="100">NISN</th>
+                                <th>Asal Sekolah</th>
+                                <th width="80">Status</th>
                             </tr>
                         </thead>
                         <tbody>${rows}</tbody>
                     </table>
+                    <p class="tgl">Dicetak pada: ${new Date().toLocaleString('id-ID')}</p>
                     <script>
                         window.onload = function() {
-                            setTimeout(function() { window.print(); }, 500);
+                            setTimeout(function() { window.print(); }, 1000);
                         };
                     <\/script>
                 </body>
                 </html>
             `;
 
-            printWin.document.open();
-            printWin.document.write(html);
+            printWin.document.write(rekapHtml);
             printWin.document.close();
         }
     </script>
