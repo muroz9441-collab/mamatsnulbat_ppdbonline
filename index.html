@@ -189,6 +189,7 @@
                                 <th class="p-4 text-xs font-bold text-slate-500 uppercase">Nama Peserta</th>
                                 <th class="p-4 text-xs font-bold text-slate-500 uppercase">NISN</th>
                                 <th class="p-4 text-xs font-bold text-slate-500 uppercase">No. Registrasi</th>
+                                <th class="p-4 text-center text-xs font-bold text-slate-500 uppercase">Status</th>
                                 <th class="p-4 text-center text-xs font-bold text-slate-500 uppercase">Aksi</th>
                             </tr>
                         </thead>
@@ -209,6 +210,33 @@
                 <button onclick="checkAdmin()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-black transition">Masuk Sistem</button>
             </div>
         </section>
+
+        <!-- Section: Admin Dashboard -->
+        <section id="admin-dashboard-section" class="hidden max-w-7xl mx-auto px-6 py-12">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-3xl font-black text-slate-900 uppercase">Dashboard Panitia</h2>
+                    <p class="text-slate-500">Kelola pendaftar dan verifikasi berkas.</p>
+                </div>
+                <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-bold hover:bg-red-100 transition">Keluar</button>
+            </div>
+            
+            <div class="bg-white rounded-[2rem] shadow-xl overflow-hidden border">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Calon Siswa</th>
+                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Asal Sekolah</th>
+                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Verifikasi</th>
+                                <th class="p-5 text-center text-xs font-bold text-slate-400 uppercase">Hapus</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
@@ -218,22 +246,36 @@
         };
 
         function showSection(name) {
-            const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login'];
+            const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
             sections.forEach(s => document.getElementById(s + '-section')?.classList.add('hidden'));
-            document.getElementById(name + '-section')?.classList.remove('hidden');
+            
+            // Proteksi Dashboard
+            if (name === 'admin-dashboard' && !isAdmin) {
+                document.getElementById('admin-login-section').classList.remove('hidden');
+            } else {
+                document.getElementById(name + '-section')?.classList.remove('hidden');
+            }
+
             if(name === 'cek-status') renderData();
+            if(name === 'admin-dashboard') renderAdminData();
             window.scrollTo(0,0);
         }
 
         function checkAdmin() {
             const pass = document.getElementById('admin-pass').value;
-            if (pass === 'admin123') {
+            if (pass === 'admin123') { // Ganti password di sini
                 isAdmin = true;
-                alert("Login Berhasil! (Fitur Admin Dashboard Sedang Dikembangkan)");
-                showSection('beranda');
+                document.getElementById('nav-admin').innerText = "Dashboard Admin";
+                showSection('admin-dashboard');
             } else {
                 alert("Kata sandi salah!");
             }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            document.getElementById('nav-admin').innerText = "Panel Admin";
+            showSection('beranda');
         }
 
         document.getElementById('ppdb-form').addEventListener('submit', async (e) => {
@@ -265,21 +307,115 @@
 
         async function renderData() {
             const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center">Memuat data...</td></tr>';
+            const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
+            
+            if(data) {
+                tbody.innerHTML = data.map(item => {
+                    let statusColor = item.status === 'Diterima' ? 'text-green-600' : (item.status === 'Ditolak' ? 'text-red-600' : 'text-amber-600');
+                    return `
+                        <tr class="border-b text-sm">
+                            <td class="p-4 font-bold">${item.nama}</td>
+                            <td class="p-4 font-mono text-xs text-slate-500">${item.nisn}</td>
+                            <td class="p-4 font-mono text-blue-600 font-bold">${item.reg}</td>
+                            <td class="p-4 text-center font-bold ${statusColor}">${item.status}</td>
+                            <td class="p-4 text-center">
+                                <button onclick="printCard('${item.reg}')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700">CETAK</button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+        }
+
+        async function renderAdminData() {
+            const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center">Memuat data...</td></tr>';
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             
             if(data) {
                 tbody.innerHTML = data.map(item => `
-                    <tr class="border-b text-sm">
-                        <td class="p-4 font-bold">${item.nama}</td>
-                        <td class="p-4 font-mono text-xs">${item.nisn}</td>
-                        <td class="p-4 font-mono text-blue-600 font-bold">${item.reg}</td>
-                        <td class="p-4 text-center">
-                            <button onclick="alert('Fitur Cetak Kartu Segera Hadir')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700">CETAK</button>
+                    <tr class="border-b hover:bg-slate-50 transition">
+                        <td class="p-5">
+                            <div class="flex items-center space-x-4">
+                                <img src="${item.foto}" class="w-12 h-12 rounded-xl object-cover bg-slate-200 border shadow-sm">
+                                <div>
+                                    <div class="font-bold text-slate-800">${item.nama}</div>
+                                    <div class="text-[10px] text-slate-400 font-mono uppercase">${item.reg} | ${item.jenis_kelamin}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="p-5">
+                            <div class="text-sm font-semibold text-slate-600">${item.asal_sekolah}</div>
+                            <div class="text-xs text-slate-400">NISN: ${item.nisn}</div>
+                        </td>
+                        <td class="p-5">
+                            <select onchange="updateStatus('${item.id}', this.value)" class="bg-slate-50 border rounded-lg p-2 text-xs font-bold outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>⏳ MENUNGGU</option>
+                                <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>✅ TERIMA</option>
+                                <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>❌ TOLAK</option>
+                            </select>
+                        </td>
+                        <td class="p-5 text-center">
+                            <button onclick="deletePendaftar('${item.id}')" class="text-red-300 hover:text-red-600 p-2 transition">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 `).join('');
             }
+        }
+
+        async function updateStatus(id, newStatus) {
+            const { error } = await supabaseClient.from('pendaftar').update({ status: newStatus }).eq('id', id);
+            if (error) alert("Gagal update: " + error.message);
+            else renderAdminData();
+        }
+
+        async function deletePendaftar(id) {
+            if (confirm("Hapus data pendaftar ini permanen?")) {
+                const { error } = await supabaseClient.from('pendaftar').delete().eq('id', id);
+                if (error) alert("Gagal hapus: " + error.message);
+                else renderAdminData();
+            }
+        }
+
+        async function printCard(reg) {
+            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
+            if (!data) return;
+            
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <html>
+                <head><title>Kartu Pendaftaran - ${data.nama}</title></head>
+                <body style="font-family: Arial, sans-serif; display: flex; justify-content: center; padding: 40px;">
+                    <div style="width: 500px; border: 4px solid #1e3a8a; border-radius: 20px; padding: 30px; position: relative;">
+                        <div style="text-align:center; margin-bottom: 20px;">
+                            <h2 style="margin:0; color:#1e3a8a;">MA NURUL ULUM</h2>
+                            <p style="font-size:12px; margin:5px 0;">Jl. Raya Batursari No. 01, Mranggen, Demak</p>
+                            <hr>
+                        </div>
+                        <div style="display:flex; gap: 20px;">
+                            <img src="${data.foto}" style="width:120px; height:160px; object-fit:cover; border: 2px solid #ddd; border-radius:10px;">
+                            <div style="flex:1;">
+                                <div style="font-size:10px; color:#666;">NAMA LENGKAP</div>
+                                <div style="font-weight:bold; font-size:16px; margin-bottom:10px;">${data.nama.toUpperCase()}</div>
+                                <div style="font-size:10px; color:#666;">NO REGISTRASI</div>
+                                <div style="font-weight:bold; color:#2563eb; font-size:18px; margin-bottom:10px;">${data.reg}</div>
+                                <div style="font-size:10px; color:#666;">NISN</div>
+                                <div style="font-weight:bold;">${data.nisn}</div>
+                            </div>
+                        </div>
+                        <div style="margin-top:30px; padding:15px; background:#f0f9ff; border-radius:10px; text-align:center;">
+                            <div style="font-size:12px; font-weight:bold; color:#1e3a8a;">STATUS: ${data.status.toUpperCase()}</div>
+                        </div>
+                        <p style="font-size:10px; color:#999; margin-top:20px; text-align:center;">Kartu ini bukti pendaftaran online. Harap dibawa saat verifikasi fisik.</p>
+                    </div>
+                    <script>window.onload = () => { window.print(); window.close(); };<\/script>
+                </body>
+                </html>
+            `);
+            win.document.close();
         }
     </script>
 </body>
