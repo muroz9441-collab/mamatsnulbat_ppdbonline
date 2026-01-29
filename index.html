@@ -29,10 +29,10 @@
 
     <script>
         /** * PENGATURAN ASET
-         * Pastikan file logo Anda di folder yang sama bernama: logo.jpg
+         * Karena di GitHub file berada di root, pastikan nama file tepat 'logo.jpg'
          */
         const ASSETS = {
-            logo_sekolah: "logo.jpg", 
+            logo_sekolah: "./logo.jpg", 
             hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
             placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
         };
@@ -115,7 +115,7 @@
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-slate-800 pb-16">
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
-                            <img src="logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-12 h-12 brightness-0 invert">
+                            <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-12 h-12 brightness-0 invert">
                             <h4 class="font-black text-xl tracking-tighter uppercase">MA NURUL ULUM</h4>
                         </div>
                         <p class="text-slate-400 text-sm leading-relaxed">Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah.</p>
@@ -263,7 +263,7 @@
 
         function checkAdmin() {
             const pass = document.getElementById('admin-pass').value;
-            if (pass === 'admin123') { // Ganti password di sini
+            if (pass === 'admin123') { // Password Default
                 isAdmin = true;
                 document.getElementById('nav-admin').innerText = "Dashboard Admin";
                 showSection('admin-dashboard');
@@ -373,7 +373,7 @@
         }
 
         async function deletePendaftar(id) {
-            if (confirm("Hapus data pendaftar ini permanen?")) {
+            if (confirm("Hapus data pendaftar ini secara permanen? Tindakan ini tidak dapat dibatalkan.")) {
                 const { error } = await supabaseClient.from('pendaftar').delete().eq('id', id);
                 if (error) alert("Gagal hapus: " + error.message);
                 else renderAdminData();
