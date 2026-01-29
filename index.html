@@ -28,13 +28,11 @@
 <body class="bg-slate-50">
 
     <script>
-        /** * CARA UPDATE LOGO DI GITHUB:
-         * 1. Upload logo.jpg ke repo GitHub Anda.
-         * 2. Klik file tersebut di GitHub, klik kanan pada gambar, pilih "Copy Image Address".
-         * 3. Tempel link tersebut di bawah ini.
+        /** * PENGATURAN ASET
+         * Pastikan file logo Anda di folder yang sama bernama: logo.jpg
          */
         const ASSETS = {
-            logo_sekolah: "logo.jpg", // Jika file berada di folder yang sama dengan index.html
+            logo_sekolah: "logo.jpg", 
             hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
             placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
         };
@@ -46,7 +44,6 @@
         
         let files = { foto: "", ijazah: "", kk: "" };
         let isAdmin = false;
-        let allData = [];
 
         function handleFile(input, key, previewId = null) {
             const file = input.files[0];
@@ -98,10 +95,10 @@
                     <div class="space-y-6 text-center md:text-left">
                         <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Tahun Pelajaran 2026/2027</span>
                         <h2 class="text-5xl md:text-6xl font-black text-slate-900 leading-tight">Masa Depan <span class="text-blue-600">Cemerlang</span> Dimulai Di Sini</h2>
-                        <p class="text-gray-500 text-lg leading-relaxed">Selamat datang di Portal Pendaftaran Online MA Nurul Ulum Batursari. Kami mencetak generasi yang berakhlaqul karimah dan unggul dalam prestasi.</p>
+                        <p class="text-gray-500 text-lg leading-relaxed">Portal Pendaftaran Online MA Nurul Ulum Batursari. Mencetak generasi yang berakhlaqul karimah dan unggul.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <button onclick="showSection('pendaftaran')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 transition">Daftar Sekarang</button>
-                            <a href="#prosedur" class="bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition text-center">Lihat Prosedur</a>
+                            <a href="#alamat" class="bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition text-center">Kontak Kami</a>
                         </div>
                     </div>
                     <div class="hidden md:block relative">
@@ -113,34 +110,15 @@
                 </div>
             </div>
 
-            <!-- Footer & Alamat Sekolah -->
+            <!-- Footer & Alamat -->
             <footer class="bg-slate-900 text-white pt-20 pb-10">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-slate-800 pb-16">
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
                             <img src="logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-12 h-12 brightness-0 invert">
-                            <h4 class="font-black text-xl tracking-tighter">MA NURUL ULUM</h4>
+                            <h4 class="font-black text-xl tracking-tighter uppercase">MA NURUL ULUM</h4>
                         </div>
-                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Membentuk pribadi unggul yang menguasai ilmu pengetahuan dan berlandaskan iman serta taqwa.</p>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-lg mb-6">Alamat Kampus</h5>
-                        <ul class="space-y-4 text-slate-400 text-sm">
-                            <li class="flex items-start">
-                                <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
-                                <span>Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah 59567</span>
-                            </li>
-                            <li class="flex items-center">
-                                <i class="fas fa-phone-alt mr-3 text-blue-500"></i>
-                                <span>(024) 1234567 / 0812-3456-7890</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 class="font-bold text-lg mb-6">Lokasi Maps</h5>
-                        <div class="rounded-2xl overflow-hidden h-40 bg-slate-800 border border-slate-700">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.7891349547074!2d110.4901544147728!3d-7.034002694918519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c3531061f1b%3A0x6a0c0e70c655223e!2sBatursari%2C%20Mranggen%2C%20Demak%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1614582939211!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
+                        <p class="text-slate-400 text-sm leading-relaxed">Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah.</p>
                     </div>
                 </div>
             </footer>
@@ -150,8 +128,8 @@
         <section id="pendaftaran-section" class="hidden max-w-5xl mx-auto px-6 py-12">
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
                 <div class="p-8 bg-blue-600 text-white">
-                    <h3 class="text-2xl font-bold">Formulir Lengkap PPDB</h3>
-                    <p class="opacity-80 text-sm">Pastikan data yang Anda masukkan sesuai dengan dokumen asli.</p>
+                    <h3 class="text-2xl font-bold">Formulir Pendaftaran</h3>
+                    <p class="opacity-80 text-sm">Lengkapi data diri pendaftar di bawah ini.</p>
                 </div>
                 
                 <form id="ppdb-form" class="p-8 space-y-8">
@@ -160,9 +138,9 @@
                             <label class="text-sm font-bold text-slate-700">Pas Foto 3x4</label>
                             <div class="relative aspect-[3/4] bg-slate-50 border-2 border-dashed rounded-2xl flex items-center justify-center overflow-hidden">
                                 <img id="preview-foto" class="absolute inset-0 w-full h-full object-cover hidden">
-                                <div class="placeholder-icon text-center">
-                                    <i class="fas fa-camera text-slate-300 text-2xl"></i>
-                                    <p class="text-[10px] text-slate-400 font-bold">UPLOAD FOTO</p>
+                                <div class="placeholder-icon text-center text-slate-300">
+                                    <i class="fas fa-camera text-2xl"></i>
+                                    <p class="text-[10px] font-bold">UPLOAD FOTO</p>
                                 </div>
                                 <input type="file" onchange="handleFile(this, 'foto', 'preview-foto')" accept="image/*" required class="absolute inset-0 opacity-0 cursor-pointer">
                             </div>
@@ -171,11 +149,11 @@
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="md:col-span-2">
                                 <label class="text-xs font-bold text-slate-400 uppercase">Nama Lengkap</label>
-                                <input type="text" id="nama" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                                <input type="text" id="nama" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-slate-400 uppercase">Jenis Kelamin</label>
-                                <select id="jenis_kelamin" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                                <select id="jenis_kelamin" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                                     <option value="">Pilih...</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -183,39 +161,16 @@
                             </div>
                             <div>
                                 <label class="text-xs font-bold text-slate-400 uppercase">NISN</label>
-                                <input type="number" id="nisn" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase">Tempat Lahir</label>
-                                <input type="text" id="tempat_lahir" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase">Tanggal Lahir</label>
-                                <input type="date" id="tanggal_lahir" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
-                            </div>
-                            <div class="md:col-span-1">
-                                <label class="text-xs font-bold text-slate-400 uppercase">Asal Sekolah</label>
-                                <input type="text" id="asal_sekolah" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                                <input type="number" id="nisn" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="text-xs font-bold text-slate-400 uppercase">Alamat Lengkap</label>
-                                <textarea id="alamat" rows="2" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border"></textarea>
+                                <label class="text-xs font-bold text-slate-400 uppercase">Asal Sekolah</label>
+                                <input type="text" id="asal_sekolah" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-8">
-                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                            <label class="block font-bold text-slate-700 mb-2 text-sm">Scan Ijazah</label>
-                            <input type="file" onchange="handleFile(this, 'ijazah')" accept="image/*,application/pdf" required class="text-xs">
-                        </div>
-                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                            <label class="block font-bold text-slate-700 mb-2 text-sm">Scan KK</label>
-                            <input type="file" onchange="handleFile(this, 'kk')" accept="image/*,application/pdf" required class="text-xs">
-                        </div>
-                    </div>
-
-                    <button type="submit" id="btn-submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">Kirim Pendaftaran</button>
+                    <button type="submit" id="btn-submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition shadow-lg">Kirim Pendaftaran</button>
                 </form>
             </div>
         </section>
@@ -243,38 +198,6 @@
             </div>
         </section>
 
-        <!-- Section: Admin Dashboard -->
-        <section id="admin-dashboard-section" class="hidden max-w-7xl mx-auto px-6 py-12">
-            <div class="flex justify-between items-end mb-8">
-                <div>
-                    <h2 class="text-3xl font-black text-slate-900">Dashboard Panitia</h2>
-                    <p class="text-slate-500">Manajemen Pendaftar Online</p>
-                </div>
-                <div class="flex gap-3">
-                    <button onclick="exportToCSV()" class="bg-green-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-green-700 transition flex items-center shadow-lg">
-                        <i class="fas fa-file-excel mr-2"></i> Export CSV (Excel)
-                    </button>
-                    <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-100 transition">Logout</button>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 border-b">
-                            <tr>
-                                <th class="p-4 font-bold text-slate-400 uppercase">Siswa</th>
-                                <th class="p-4 font-bold text-slate-400 uppercase">Informasi</th>
-                                <th class="p-4 font-bold text-slate-400 uppercase">Dokumen</th>
-                                <th class="p-4 text-center font-bold text-slate-400 uppercase">Verifikasi</th>
-                            </tr>
-                        </thead>
-                        <tbody id="admin-table-body"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
         <!-- Section: Admin Login -->
         <section id="admin-login-section" class="hidden max-w-md mx-auto px-6 py-24">
             <div class="bg-white p-8 rounded-[2rem] shadow-2xl text-center border">
@@ -288,19 +211,6 @@
         </section>
     </main>
 
-    <!-- Modal View Dokumen -->
-    <div id="modal-doc" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center p-6">
-        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden relative">
-            <button onclick="closeDoc()" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-lg"><i class="fas fa-times"></i></button>
-            <div class="p-6 bg-slate-50 border-b">
-                <h4 id="doc-title" class="font-bold text-lg text-slate-800">Lihat Dokumen</h4>
-            </div>
-            <div class="p-4 flex justify-center bg-slate-200 min-h-[400px]">
-                <img id="doc-img" class="max-w-full h-auto shadow-xl rounded-lg border-4 border-white">
-            </div>
-        </div>
-    </div>
-
     <script>
         window.onload = function() {
             document.getElementById('nav-logo').src = ASSETS.logo_sekolah;
@@ -308,20 +218,10 @@
         };
 
         function showSection(name) {
-            const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
-            sections.forEach(s => {
-                const el = document.getElementById(s + '-section');
-                if (el) el.classList.add('hidden');
-            });
-            
-            if (name === 'admin-dashboard' && !isAdmin) {
-                document.getElementById('admin-login-section').classList.remove('hidden');
-            } else {
-                document.getElementById(name + '-section').classList.remove('hidden');
-            }
-
+            const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login'];
+            sections.forEach(s => document.getElementById(s + '-section')?.classList.add('hidden'));
+            document.getElementById(name + '-section')?.classList.remove('hidden');
             if(name === 'cek-status') renderData();
-            if(name === 'admin-dashboard') renderAdminTable();
             window.scrollTo(0,0);
         }
 
@@ -329,37 +229,26 @@
             const pass = document.getElementById('admin-pass').value;
             if (pass === 'admin123') {
                 isAdmin = true;
-                document.getElementById('nav-admin').innerText = "Dashboard Admin";
-                showSection('admin-dashboard');
+                alert("Login Berhasil! (Fitur Admin Dashboard Sedang Dikembangkan)");
+                showSection('beranda');
             } else {
                 alert("Kata sandi salah!");
             }
-        }
-
-        function logoutAdmin() {
-            isAdmin = false;
-            document.getElementById('nav-admin').innerText = "Panel Admin";
-            showSection('beranda');
         }
 
         document.getElementById('ppdb-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('btn-submit');
             btn.disabled = true;
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Mengirim Data...`;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Mengirim...`;
 
             const payload = {
                 nama: document.getElementById('nama').value,
                 jenis_kelamin: document.getElementById('jenis_kelamin').value,
                 nisn: document.getElementById('nisn').value,
-                tempat_lahir: document.getElementById('tempat_lahir').value,
-                tanggal_lahir: document.getElementById('tanggal_lahir').value,
                 asal_sekolah: document.getElementById('asal_sekolah').value,
-                alamat: document.getElementById('alamat').value,
                 reg: 'MA-' + Math.floor(Math.random() * 90000 + 10000),
                 foto: files.foto,
-                file_ijazah: files.ijazah,
-                file_kk: files.kk,
                 status: 'Menunggu'
             };
 
@@ -369,8 +258,8 @@
                 btn.disabled = false;
                 btn.innerText = "Kirim Pendaftaran";
             } else {
-                alert("Pendaftaran Berhasil!");
-                location.reload();
+                alert("Pendaftaran Berhasil! Silakan cek daftar pendaftar.");
+                showSection('cek-status');
             }
         });
 
@@ -386,103 +275,11 @@
                         <td class="p-4 font-mono text-xs">${item.nisn}</td>
                         <td class="p-4 font-mono text-blue-600 font-bold">${item.reg}</td>
                         <td class="p-4 text-center">
-                            <button onclick="printCard('${item.reg}')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700">CETAK</button>
+                            <button onclick="alert('Fitur Cetak Kartu Segera Hadir')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700">CETAK</button>
                         </td>
                     </tr>
                 `).join('');
             }
-        }
-
-        async function renderAdminTable() {
-            const tbody = document.getElementById('admin-table-body');
-            const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
-            
-            if (data) {
-                allData = data;
-                tbody.innerHTML = data.map(item => `
-                    <tr class="border-b align-top">
-                        <td class="p-4">
-                            <div class="flex items-center space-x-3">
-                                <img src="${item.foto}" class="w-10 h-10 rounded-lg object-cover border bg-slate-200">
-                                <div><div class="font-bold text-slate-900">${item.nama}</div><div class="text-[10px] text-slate-400">${item.reg}</div></div>
-                            </div>
-                        </td>
-                        <td class="p-4">
-                            <div class="font-bold text-xs">${item.asal_sekolah}</div>
-                            <div class="text-[10px] text-slate-400">${item.jenis_kelamin} | NISN: ${item.nisn}</div>
-                        </td>
-                        <td class="p-4 space-y-1">
-                            <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 px-2 rounded font-bold">IJAZAH</button>
-                            <button onclick="viewDoc('${item.file_kk}', 'KK - ${item.nama}')" class="block w-full text-left text-[10px] bg-purple-50 text-purple-600 p-1 px-2 rounded font-bold">KK</button>
-                        </td>
-                        <td class="p-4 text-center">
-                            <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] font-bold border rounded p-1">
-                                <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>MENUNGGU</option>
-                                <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>DITERIMA</option>
-                                <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>DITOLAK</option>
-                            </select>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-        }
-
-        function exportToCSV() {
-            if (allData.length === 0) return alert("Data kosong");
-            let csv = "No. Reg,Nama,NISN,Sekolah,Status\n";
-            allData.forEach(r => csv += `${r.reg},${r.nama},${r.nisn},${r.asal_sekolah},${r.status}\n`);
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'data_ppdb.csv';
-            a.click();
-        }
-
-        async function updateStatus(id, status) {
-            await supabaseClient.from('pendaftar').update({ status }).eq('id', id);
-            renderAdminTable();
-        }
-
-        function viewDoc(src, title) {
-            document.getElementById('doc-title').innerText = title;
-            document.getElementById('doc-img').src = src;
-            document.getElementById('modal-doc').classList.remove('hidden');
-            document.getElementById('modal-doc').classList.add('flex');
-        }
-
-        function closeDoc() {
-            document.getElementById('modal-doc').classList.add('hidden');
-        }
-
-        async function printCard(reg) {
-            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
-            if (!data) return;
-            const win = window.open('', '_blank');
-            win.document.write(`
-                <html>
-                <head><title>Kartu PPDB</title></head>
-                <body style="font-family:sans-serif; padding:40px; border:5px solid #1e3a8a;">
-                    <h2 style="text-align:center; color:#1e3a8a;">KARTU PENDAFTARAN PPDB</h2>
-                    <hr>
-                    <table style="width:100%;">
-                        <tr>
-                            <td style="width:150px;"><img src="${data.foto}" style="width:150px; height:200px; object-fit:cover; border:1px solid #000;"></td>
-                            <td style="vertical-align:top; padding-left:20px;">
-                                <h3 style="margin-top:0;">${data.nama}</h3>
-                                <p>No. Registrasi: <b>${data.reg}</b></p>
-                                <p>NISN: ${data.nisn}</p>
-                                <p>Asal Sekolah: ${data.asal_sekolah}</p>
-                                <p>Status: ${data.status}</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <p style="margin-top:50px; text-align:right;">Panitia PPDB MA Nurul Ulum</p>
-                    <script>window.onload = () => { window.print(); window.close(); };<\/script>
-                </body>
-                </html>
-            `);
-            win.document.close();
         }
     </script>
 </body>
