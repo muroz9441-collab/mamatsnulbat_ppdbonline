@@ -17,6 +17,7 @@
             background-size: 20px 20px;
         }
 
+        .step-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .hidden { display: none; }
         
         @media print {
@@ -27,13 +28,25 @@
 <body class="bg-slate-50">
 
     <script>
+        /** * CARA UPDATE LOGO DI GITHUB:
+         * 1. Upload logo.jpg ke repo GitHub Anda.
+         * 2. Klik file tersebut di GitHub, klik kanan pada gambar, pilih "Copy Image Address".
+         * 3. Tempel link tersebut di bawah ini.
+         */
+        const ASSETS = {
+            logo_sekolah: "logo.jpg", // Jika file berada di folder yang sama dengan index.html
+            hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
+            placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
+        };
+
         const SUPABASE_URL = "https://zywhjrzihbzgegjftgof.supabase.co"; 
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5d2hqcnppaGJ6Z2VnamZ0Z29mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2NjEyNDcsImV4cCI6MjA4NTIzNzI0N30.wye-naMsA-6BCtieygaL_V-R_b4YWaGmUHqFRHIEeyI"; 
         
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         
-        let files = { foto: "" };
+        let files = { foto: "", ijazah: "", kk: "" };
         let isAdmin = false;
+        let allData = [];
 
         function handleFile(input, key, previewId = null) {
             const file = input.files[0];
@@ -62,7 +75,7 @@
     <nav class="bg-white/90 backdrop-blur-md shadow-sm p-4 sticky top-0 z-50 no-print">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('beranda')">
-                <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
+                <img id="nav-logo" src="" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
                 <div>
                     <h1 class="font-bold text-lg text-blue-900 leading-tight uppercase">MA Nurul Ulum</h1>
                     <p class="text-[10px] font-bold text-blue-500 tracking-tighter uppercase">Penerimaan Siswa Baru</p>
@@ -78,118 +91,149 @@
     </nav>
 
     <main>
-        <!-- Beranda -->
+        <!-- Section: Beranda -->
         <section id="beranda-section">
             <div class="hero-pattern min-h-[60vh] flex items-center">
                 <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div class="space-y-6 text-center md:text-left">
                         <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Tahun Pelajaran 2026/2027</span>
                         <h2 class="text-5xl md:text-6xl font-black text-slate-900 leading-tight">Masa Depan <span class="text-blue-600">Cemerlang</span> Dimulai Di Sini</h2>
-                        <p class="text-gray-500 text-lg leading-relaxed">Portal Pendaftaran Online MA Nurul Ulum Batursari. Mencetak generasi yang berakhlaqul karimah dan unggul.</p>
+                        <p class="text-gray-500 text-lg leading-relaxed">Selamat datang di Portal Pendaftaran Online MA Nurul Ulum Batursari. Kami mencetak generasi yang berakhlaqul karimah dan unggul dalam prestasi.</p>
                         <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <button onclick="showSection('pendaftaran')" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl hover:bg-blue-700 transition">Daftar Sekarang</button>
-                            <a href="#footer-info" class="bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition text-center">Kontak Kami</a>
+                            <a href="#prosedur" class="bg-white border border-slate-200 text-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 transition text-center">Lihat Prosedur</a>
+                        </div>
+                    </div>
+                    <div class="hidden md:block relative">
+                        <div class="w-full h-96 bg-blue-600 rounded-[3rem] rotate-3 absolute inset-0 opacity-10"></div>
+                        <div class="w-full h-96 bg-slate-200 rounded-[3rem] overflow-hidden relative shadow-2xl border-4 border-white">
+                            <img id="hero-img" src="" class="w-full h-full object-cover" alt="Siswa Sekolah">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <footer id="footer-info" class="bg-[#0a1128] text-white pt-20 pb-10">
+            <!-- Footer & Alamat Sekolah -->
+            <footer class="bg-slate-900 text-white pt-20 pb-10">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-slate-800 pb-16">
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
-                            <div class="w-10 h-10 bg-white rounded flex items-center justify-center">
-                                <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-8 h-8 object-contain">
-                            </div>
-                            <h4 class="font-bold text-xl tracking-tight uppercase">MA NURUL ULUM</h4>
+                            <img src="logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-12 h-12 brightness-0 invert">
+                            <h4 class="font-black text-xl tracking-tighter">MA NURUL ULUM</h4>
                         </div>
-                        <p class="text-slate-400 text-sm leading-relaxed max-w-sm">Membentuk pribadi unggul yang menguasai ilmu pengetahuan dan berlandaskan iman serta taqwa.</p>
+                        <p class="text-slate-400 text-sm leading-relaxed mb-6">Membentuk pribadi unggul yang menguasai ilmu pengetahuan dan berlandaskan iman serta taqwa.</p>
                     </div>
                     <div>
-                        <h4 class="font-bold mb-6 text-white text-lg">Alamat Kampus</h4>
-                        <div class="space-y-4">
-                            <div class="flex items-start space-x-3 text-slate-400 text-sm">
-                                <i class="fas fa-map-marker-alt mt-1 text-blue-500"></i>
-                                <p>Jl. Raya Batursari No. 01, Batursari, Mranggen,<br>Demak, Jawa Tengah 59567</p>
-                            </div>
-                            <div class="flex items-start space-x-3 text-slate-400 text-sm">
-                                <i class="fas fa-phone mt-1 text-blue-500"></i>
-                                <p>(024) 1234567 / 0812-3456-7890</p>
-                            </div>
-                        </div>
+                        <h5 class="font-bold text-lg mb-6">Alamat Kampus</h5>
+                        <ul class="space-y-4 text-slate-400 text-sm">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                                <span>Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah 59567</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone-alt mr-3 text-blue-500"></i>
+                                <span>(024) 1234567 / 0812-3456-7890</span>
+                            </li>
+                        </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold mb-6 text-white text-lg">Lokasi Maps</h4>
-                        <div class="rounded-2xl overflow-hidden h-48 border border-slate-700 shadow-lg">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.882834578508!2d110.4965!3d-7.0221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c454e95457f%3A0xc47e33792078696d!2sMA%20Nurul%20Ulum%20Batursari!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        <h5 class="font-bold text-lg mb-6">Lokasi Maps</h5>
+                        <div class="rounded-2xl overflow-hidden h-40 bg-slate-800 border border-slate-700">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.7891349547074!2d110.4901544147728!3d-7.034002694918519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c3531061f1b%3A0x6a0c0e70c655223e!2sBatursari%2C%20Mranggen%2C%20Demak%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1614582939211!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
                 </div>
             </footer>
         </section>
 
-        <!-- Pendaftaran -->
+        <!-- Section: Pendaftaran -->
         <section id="pendaftaran-section" class="hidden max-w-5xl mx-auto px-6 py-12">
-            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border">
-                <div class="p-8 bg-blue-600 text-white text-center">
-                    <h3 class="text-2xl font-bold">Formulir Pendaftaran</h3>
-                    <p class="opacity-80 text-sm">Lengkapi data diri pendaftar di bawah ini.</p>
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
+                <div class="p-8 bg-blue-600 text-white">
+                    <h3 class="text-2xl font-bold">Formulir Lengkap PPDB</h3>
+                    <p class="opacity-80 text-sm">Pastikan data yang Anda masukkan sesuai dengan dokumen asli.</p>
                 </div>
+                
                 <form id="ppdb-form" class="p-8 space-y-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="space-y-2">
                             <label class="text-sm font-bold text-slate-700">Pas Foto 3x4</label>
                             <div class="relative aspect-[3/4] bg-slate-50 border-2 border-dashed rounded-2xl flex items-center justify-center overflow-hidden">
                                 <img id="preview-foto" class="absolute inset-0 w-full h-full object-cover hidden">
-                                <div class="placeholder-icon text-center text-slate-300">
-                                    <i class="fas fa-camera text-2xl"></i>
-                                    <p class="text-[10px] font-bold uppercase">Upload Foto</p>
+                                <div class="placeholder-icon text-center">
+                                    <i class="fas fa-camera text-slate-300 text-2xl"></i>
+                                    <p class="text-[10px] text-slate-400 font-bold">UPLOAD FOTO</p>
                                 </div>
                                 <input type="file" onchange="handleFile(this, 'foto', 'preview-foto')" accept="image/*" required class="absolute inset-0 opacity-0 cursor-pointer">
                             </div>
                         </div>
+
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="md:col-span-2">
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Nama Lengkap</label>
-                                <input type="text" id="nama" required class="w-full p-3 bg-slate-50 rounded-xl border focus:border-blue-500">
+                                <label class="text-xs font-bold text-slate-400 uppercase">Nama Lengkap</label>
+                                <input type="text" id="nama" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Jenis Kelamin</label>
-                                <select id="jenis_kelamin" required class="w-full p-3 bg-slate-50 rounded-xl border focus:border-blue-500">
+                                <label class="text-xs font-bold text-slate-400 uppercase">Jenis Kelamin</label>
+                                <select id="jenis_kelamin" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
                                     <option value="">Pilih...</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">NISN</label>
-                                <input type="number" id="nisn" required class="w-full p-3 bg-slate-50 rounded-xl border focus:border-blue-500">
+                                <label class="text-xs font-bold text-slate-400 uppercase">NISN</label>
+                                <input type="number" id="nisn" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-400 uppercase">Tempat Lahir</label>
+                                <input type="text" id="tempat_lahir" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-slate-400 uppercase">Tanggal Lahir</label>
+                                <input type="date" id="tanggal_lahir" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
+                            </div>
+                            <div class="md:col-span-1">
+                                <label class="text-xs font-bold text-slate-400 uppercase">Asal Sekolah</label>
+                                <input type="text" id="asal_sekolah" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Asal Sekolah</label>
-                                <input type="text" id="asal_sekolah" required class="w-full p-3 bg-slate-50 rounded-xl border focus:border-blue-500">
+                                <label class="text-xs font-bold text-slate-400 uppercase">Alamat Lengkap</label>
+                                <textarea id="alamat" rows="2" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border"></textarea>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" id="btn-submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition">Kirim Pendaftaran</button>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-8">
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <label class="block font-bold text-slate-700 mb-2 text-sm">Scan Ijazah</label>
+                            <input type="file" onchange="handleFile(this, 'ijazah')" accept="image/*,application/pdf" required class="text-xs">
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                            <label class="block font-bold text-slate-700 mb-2 text-sm">Scan KK</label>
+                            <input type="file" onchange="handleFile(this, 'kk')" accept="image/*,application/pdf" required class="text-xs">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-submit" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">Kirim Pendaftaran</button>
                 </form>
             </div>
         </section>
 
-        <!-- Daftar Pendaftar -->
-        <section id="cek-status-section" class="hidden max-w-6xl mx-auto px-6 py-12">
-            <div class="bg-white rounded-3xl shadow-xl border overflow-hidden">
+        <!-- Section: Cek Status -->
+        <section id="cek-status-section" class="hidden max-w-5xl mx-auto px-6 py-12">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border">
                 <div class="p-6 border-b flex justify-between items-center bg-slate-50">
-                    <h2 class="font-bold text-xl text-slate-800 uppercase tracking-tight">Daftar Calon Siswa</h2>
-                    <button onclick="renderData()" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-xs font-bold">Refresh</button>
+                    <h2 class="font-bold text-xl text-slate-800">Daftar Calon Siswa Terdaftar</h2>
+                    <button onclick="renderData()" class="bg-white border px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-50 transition">Refresh</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead class="bg-slate-100 border-b">
                             <tr>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">Nama</th>
-                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">No. Reg</th>
-                                <th class="p-4 text-center text-xs font-bold text-slate-500 uppercase">Status</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">Nama Peserta</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">NISN</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase">No. Registrasi</th>
                                 <th class="p-4 text-center text-xs font-bold text-slate-500 uppercase">Aksi</th>
                             </tr>
                         </thead>
@@ -199,38 +243,30 @@
             </div>
         </section>
 
-        <!-- Admin Login -->
-        <section id="admin-login-section" class="hidden max-w-md mx-auto px-6 py-24">
-            <div class="bg-white p-8 rounded-[2rem] shadow-2xl text-center border">
-                <h3 class="text-2xl font-black mb-6">Panel Admin</h3>
-                <input type="password" id="admin-pass" placeholder="Password Admin" class="w-full p-4 bg-slate-50 rounded-xl mb-4 border text-center">
-                <button onclick="checkAdmin()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold">Login</button>
-            </div>
-        </section>
-
-        <!-- Admin Dashboard -->
+        <!-- Section: Admin Dashboard -->
         <section id="admin-dashboard-section" class="hidden max-w-7xl mx-auto px-6 py-12">
             <div class="flex justify-between items-end mb-8">
                 <div>
-                    <h2 class="text-3xl font-black uppercase">Admin Dashboard</h2>
-                    <p class="text-slate-500">Kelola pendaftaran siswa</p>
+                    <h2 class="text-3xl font-black text-slate-900">Dashboard Panitia</h2>
+                    <p class="text-slate-500">Manajemen Pendaftar Online</p>
                 </div>
-                <div class="flex space-x-2">
-                    <button onclick="printRekap()" class="bg-emerald-600 text-white px-5 py-3 rounded-xl font-bold flex items-center">
-                        <i class="fas fa-file-pdf mr-2"></i> Cetak Rekap
+                <div class="flex gap-3">
+                    <button onclick="exportToCSV()" class="bg-green-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-green-700 transition flex items-center shadow-lg">
+                        <i class="fas fa-file-excel mr-2"></i> Export CSV (Excel)
                     </button>
-                    <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-5 py-3 rounded-xl font-bold">Keluar</button>
+                    <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-100 transition">Logout</button>
                 </div>
             </div>
-            <div class="bg-white rounded-3xl shadow-xl border overflow-hidden">
+
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left">
+                    <table class="w-full text-left text-sm">
                         <thead class="bg-slate-50 border-b">
                             <tr>
-                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Calon Siswa</th>
-                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Asal Sekolah</th>
-                                <th class="p-5 text-xs font-bold text-slate-400 uppercase">Status</th>
-                                <th class="p-5 text-center text-xs font-bold text-slate-400 uppercase">Aksi</th>
+                                <th class="p-4 font-bold text-slate-400 uppercase">Siswa</th>
+                                <th class="p-4 font-bold text-slate-400 uppercase">Informasi</th>
+                                <th class="p-4 font-bold text-slate-400 uppercase">Dokumen</th>
+                                <th class="p-4 text-center font-bold text-slate-400 uppercase">Verifikasi</th>
                             </tr>
                         </thead>
                         <tbody id="admin-table-body"></tbody>
@@ -238,9 +274,39 @@
                 </div>
             </div>
         </section>
+
+        <!-- Section: Admin Login -->
+        <section id="admin-login-section" class="hidden max-w-md mx-auto px-6 py-24">
+            <div class="bg-white p-8 rounded-[2rem] shadow-2xl text-center border">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-lock text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-800 mb-2">Panel Panitia</h3>
+                <input type="password" id="admin-pass" placeholder="Password Admin" class="w-full p-4 bg-slate-50 rounded-xl mb-4 outline-none text-center font-bold border">
+                <button onclick="checkAdmin()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-black transition">Masuk Sistem</button>
+            </div>
+        </section>
     </main>
 
+    <!-- Modal View Dokumen -->
+    <div id="modal-doc" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center p-6">
+        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden relative">
+            <button onclick="closeDoc()" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-lg"><i class="fas fa-times"></i></button>
+            <div class="p-6 bg-slate-50 border-b">
+                <h4 id="doc-title" class="font-bold text-lg text-slate-800">Lihat Dokumen</h4>
+            </div>
+            <div class="p-4 flex justify-center bg-slate-200 min-h-[400px]">
+                <img id="doc-img" class="max-w-full h-auto shadow-xl rounded-lg border-4 border-white">
+            </div>
+        </div>
+    </div>
+
     <script>
+        window.onload = function() {
+            document.getElementById('nav-logo').src = ASSETS.logo_sekolah;
+            document.getElementById('hero-img').src = ASSETS.hero_image;
+        };
+
         function showSection(name) {
             const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
             sections.forEach(s => {
@@ -251,22 +317,22 @@
             if (name === 'admin-dashboard' && !isAdmin) {
                 document.getElementById('admin-login-section').classList.remove('hidden');
             } else {
-                const target = document.getElementById(name + '-section');
-                if (target) target.classList.remove('hidden');
+                document.getElementById(name + '-section').classList.remove('hidden');
             }
 
             if(name === 'cek-status') renderData();
-            if(name === 'admin-dashboard') renderAdminData();
+            if(name === 'admin-dashboard') renderAdminTable();
             window.scrollTo(0,0);
         }
 
         function checkAdmin() {
-            if (document.getElementById('admin-pass').value === 'admin123') {
+            const pass = document.getElementById('admin-pass').value;
+            if (pass === 'admin123') {
                 isAdmin = true;
                 document.getElementById('nav-admin').innerText = "Dashboard Admin";
                 showSection('admin-dashboard');
             } else {
-                alert("Salah Password!");
+                alert("Kata sandi salah!");
             }
         }
 
@@ -280,244 +346,143 @@
             e.preventDefault();
             const btn = document.getElementById('btn-submit');
             btn.disabled = true;
-            btn.innerText = "Mengirim...";
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Mengirim Data...`;
 
             const payload = {
                 nama: document.getElementById('nama').value,
                 jenis_kelamin: document.getElementById('jenis_kelamin').value,
                 nisn: document.getElementById('nisn').value,
+                tempat_lahir: document.getElementById('tempat_lahir').value,
+                tanggal_lahir: document.getElementById('tanggal_lahir').value,
                 asal_sekolah: document.getElementById('asal_sekolah').value,
-                reg: 'MA-' + Math.floor(10000 + Math.random() * 90000),
+                alamat: document.getElementById('alamat').value,
+                reg: 'MA-' + Math.floor(Math.random() * 90000 + 10000),
                 foto: files.foto,
+                file_ijazah: files.ijazah,
+                file_kk: files.kk,
                 status: 'Menunggu'
             };
 
             const { error } = await supabaseClient.from('pendaftar').insert([payload]);
             if (error) {
-                alert(error.message);
+                alert("Gagal: " + error.message);
                 btn.disabled = false;
                 btn.innerText = "Kirim Pendaftaran";
             } else {
-                alert("Berhasil Terdaftar!");
-                showSection('cek-status');
+                alert("Pendaftaran Berhasil!");
+                location.reload();
             }
         });
 
         async function renderData() {
-            const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             const tbody = document.getElementById('table-body');
-            if(!tbody) return;
-            tbody.innerHTML = (data || []).map(item => `
-                <tr class="border-b text-sm">
-                    <td class="p-4 font-bold">${item.nama}</td>
-                    <td class="p-4 text-blue-600 font-mono">${item.reg}</td>
-                    <td class="p-4 text-center font-bold">${item.status}</td>
-                    <td class="p-4 text-center">
-                        <button onclick="printCard('${item.reg}')" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-[10px] font-bold">CETAK</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        async function renderAdminData() {
+            tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center">Memuat data...</td></tr>';
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
+            
+            if(data) {
+                tbody.innerHTML = data.map(item => `
+                    <tr class="border-b text-sm">
+                        <td class="p-4 font-bold">${item.nama}</td>
+                        <td class="p-4 font-mono text-xs">${item.nisn}</td>
+                        <td class="p-4 font-mono text-blue-600 font-bold">${item.reg}</td>
+                        <td class="p-4 text-center">
+                            <button onclick="printCard('${item.reg}')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700">CETAK</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        async function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
-            if(!tbody) return;
-            tbody.innerHTML = (data || []).map(item => `
-                <tr class="border-b hover:bg-slate-50 transition">
-                    <td class="p-5 flex items-center space-x-3">
-                        <img src="${item.foto}" class="w-10 h-10 rounded-lg object-cover bg-slate-100">
-                        <div>
-                            <div class="font-bold text-slate-800">${item.nama}</div>
-                            <div class="text-[10px] text-slate-400">${item.reg}</div>
-                        </div>
-                    </td>
-                    <td class="p-5 text-xs">${item.asal_sekolah}</td>
-                    <td class="p-5">
-                        <select onchange="updateStatus('${item.id}', this.value)" class="border rounded p-1 text-[10px]">
-                            <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>Menunggu</option>
-                            <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>Diterima</option>
-                            <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>Ditolak</option>
-                        </select>
-                    </td>
-                    <td class="p-5 text-center">
-                        <button onclick="printCard('${item.reg}')" class="text-blue-600 mr-2"><i class="fas fa-print"></i></button>
-                        <button onclick="deletePendaftar('${item.id}')" class="text-red-400"><i class="fas fa-trash"></i></button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        async function updateStatus(id, s) {
-            await supabaseClient.from('pendaftar').update({ status: s }).eq('id', id);
-            renderAdminData();
-        }
-
-        async function deletePendaftar(id) {
-            if(confirm("Hapus?")) {
-                await supabaseClient.from('pendaftar').delete().eq('id', id);
-                renderAdminData();
+            const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
+            
+            if (data) {
+                allData = data;
+                tbody.innerHTML = data.map(item => `
+                    <tr class="border-b align-top">
+                        <td class="p-4">
+                            <div class="flex items-center space-x-3">
+                                <img src="${item.foto}" class="w-10 h-10 rounded-lg object-cover border bg-slate-200">
+                                <div><div class="font-bold text-slate-900">${item.nama}</div><div class="text-[10px] text-slate-400">${item.reg}</div></div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-bold text-xs">${item.asal_sekolah}</div>
+                            <div class="text-[10px] text-slate-400">${item.jenis_kelamin} | NISN: ${item.nisn}</div>
+                        </td>
+                        <td class="p-4 space-y-1">
+                            <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 px-2 rounded font-bold">IJAZAH</button>
+                            <button onclick="viewDoc('${item.file_kk}', 'KK - ${item.nama}')" class="block w-full text-left text-[10px] bg-purple-50 text-purple-600 p-1 px-2 rounded font-bold">KK</button>
+                        </td>
+                        <td class="p-4 text-center">
+                            <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] font-bold border rounded p-1">
+                                <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>MENUNGGU</option>
+                                <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>DITERIMA</option>
+                                <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>DITOLAK</option>
+                            </select>
+                        </td>
+                    </tr>
+                `).join('');
             }
         }
 
-        // FUNGSI CETAK DIPERBAIKI: Menggunakan pendekatan yang lebih kompatibel
+        function exportToCSV() {
+            if (allData.length === 0) return alert("Data kosong");
+            let csv = "No. Reg,Nama,NISN,Sekolah,Status\n";
+            allData.forEach(r => csv += `${r.reg},${r.nama},${r.nisn},${r.asal_sekolah},${r.status}\n`);
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'data_ppdb.csv';
+            a.click();
+        }
+
+        async function updateStatus(id, status) {
+            await supabaseClient.from('pendaftar').update({ status }).eq('id', id);
+            renderAdminTable();
+        }
+
+        function viewDoc(src, title) {
+            document.getElementById('doc-title').innerText = title;
+            document.getElementById('doc-img').src = src;
+            document.getElementById('modal-doc').classList.remove('hidden');
+            document.getElementById('modal-doc').classList.add('flex');
+        }
+
+        function closeDoc() {
+            document.getElementById('modal-doc').classList.add('hidden');
+        }
+
         async function printCard(reg) {
-            console.log("Memulai proses cetak untuk:", reg);
-            const { data, error } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
-            
-            if(error || !data) {
-                console.error("Data tidak ditemukan:", error);
-                return;
-            }
-
-            const printWin = window.open('', '_blank', 'width=800,height=600');
-            
-            if(!printWin) {
-                alert("Pop-up diblokir browser! Klik ikon gembok di URL bar lalu pilih 'Allow Pop-ups'.");
-                return;
-            }
-
-            const cardHtml = `
-                <!DOCTYPE html>
+            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
+            if (!data) return;
+            const win = window.open('', '_blank');
+            win.document.write(`
                 <html>
-                <head>
-                    <title>CETAK_KARTU_${data.reg}</title>
-                    <style>
-                        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; background: #f0f0f0; display: flex; justify-content: center; }
-                        .card { width: 450px; background: white; border: 3px solid #1e3a8a; border-radius: 15px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: relative; overflow: hidden; }
-                        .header { text-align: center; border-bottom: 2px solid #eee; margin-bottom: 20px; padding-bottom: 10px; }
-                        .header h2 { margin: 0; color: #1e3a8a; text-transform: uppercase; font-size: 18px; }
-                        .header p { margin: 5px 0 0; font-size: 11px; font-weight: bold; color: #666; }
-                        .content { display: flex; gap: 20px; }
-                        .photo-box { width: 120px; height: 160px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
-                        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
-                        .details { flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
-                        .field { display: flex; flex-direction: column; }
-                        .label { font-size: 9px; color: #999; font-weight: bold; text-transform: uppercase; }
-                        .value { font-size: 14px; color: #333; font-weight: 700; word-break: break-word; }
-                        .reg-no { color: #2563eb; font-family: monospace; font-size: 18px; }
-                        .footer-status { margin-top: 20px; padding: 10px; background: #e0f2fe; border-radius: 8px; text-align: center; color: #0369a1; font-weight: bold; font-size: 12px; border: 1px solid #bae6fd; }
-                        @media print {
-                            body { background: white; padding: 0; }
-                            .card { box-shadow: none; border: 2px solid #000; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="card">
-                        <div class="header">
-                            <h2>Kartu Peserta PPDB</h2>
-                            <p>MA NURUL ULUM BATURSARI 2026/2027</p>
-                        </div>
-                        <div class="content">
-                            <div class="photo-box">
-                                <img src="${data.foto || 'https://via.placeholder.com/120x160?text=FOTO'}" onerror="this.src='https://via.placeholder.com/120x160?text=Error'">
-                            </div>
-                            <div class="details">
-                                <div class="field">
-                                    <span class="label">Nomor Registrasi</span>
-                                    <span class="value reg-no">${data.reg}</span>
-                                </div>
-                                <div class="field">
-                                    <span class="label">Nama Lengkap</span>
-                                    <span class="value">${data.nama.toUpperCase()}</span>
-                                </div>
-                                <div class="field">
-                                    <span class="label">NISN</span>
-                                    <span class="value">${data.nisn}</span>
-                                </div>
-                                <div class="field">
-                                    <span class="label">Sekolah Asal</span>
-                                    <span class="value">${data.asal_sekolah}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="footer-status">
-                            STATUS PENDAFTARAN: ${data.status.toUpperCase()}
-                        </div>
-                    </div>
-                    <script>
-                        window.onload = function() {
-                            setTimeout(function() {
-                                window.print();
-                            }, 800);
-                        };
-                    <\/script>
-                </body>
-                </html>
-            `;
-
-            printWin.document.write(cardHtml);
-            printWin.document.close();
-        }
-
-        async function printRekap() {
-            const { data } = await supabaseClient.from('pendaftar').select('*').order('nama', {ascending: true});
-            if(!data || data.length === 0) {
-                alert("Tidak ada data untuk direkap.");
-                return;
-            }
-
-            const printWin = window.open('', '_blank');
-            if(!printWin) { alert("Popup diblokir!"); return; }
-
-            const rows = data.map((item, idx) => `
-                <tr>
-                    <td style="text-align:center">${idx+1}</td>
-                    <td style="text-align:center; font-family:monospace;">${item.reg}</td>
-                    <td>${item.nama.toUpperCase()}</td>
-                    <td style="text-align:center">${item.nisn}</td>
-                    <td>${item.asal_sekolah}</td>
-                    <td style="text-align:center; font-weight:bold;">${item.status}</td>
-                </tr>
-            `).join('');
-
-            const rekapHtml = `
-                <html>
-                <head>
-                    <title>REKAP_PPDB_2026</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; padding: 40px; }
-                        .kop { text-align: center; border-bottom: 3px double #000; padding-bottom: 15px; margin-bottom: 25px; }
-                        .kop h2, .kop h3 { margin: 5px 0; text-transform: uppercase; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-                        th, td { border: 1px solid #000; padding: 10px; font-size: 12px; }
-                        th { background: #f0f0f0; text-transform: uppercase; }
-                        .tgl { text-align: right; margin-top: 20px; font-size: 12px; }
-                    </style>
-                </head>
-                <body>
-                    <div class="kop">
-                        <h2>Panitia Penerimaan Peserta Didik Baru</h2>
-                        <h3>MA Nurul Ulum Batursari</h3>
-                        <p>Tahun Pelajaran 2026/2027</p>
-                    </div>
-                    <h4 style="text-align:center; text-decoration:underline;">REKAPITULASI DATA PENDAFTAR</h4>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th width="30">No</th>
-                                <th width="100">Reg</th>
-                                <th>Nama Lengkap</th>
-                                <th width="100">NISN</th>
-                                <th>Asal Sekolah</th>
-                                <th width="80">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
+                <head><title>Kartu PPDB</title></head>
+                <body style="font-family:sans-serif; padding:40px; border:5px solid #1e3a8a;">
+                    <h2 style="text-align:center; color:#1e3a8a;">KARTU PENDAFTARAN PPDB</h2>
+                    <hr>
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="width:150px;"><img src="${data.foto}" style="width:150px; height:200px; object-fit:cover; border:1px solid #000;"></td>
+                            <td style="vertical-align:top; padding-left:20px;">
+                                <h3 style="margin-top:0;">${data.nama}</h3>
+                                <p>No. Registrasi: <b>${data.reg}</b></p>
+                                <p>NISN: ${data.nisn}</p>
+                                <p>Asal Sekolah: ${data.asal_sekolah}</p>
+                                <p>Status: ${data.status}</p>
+                            </td>
+                        </tr>
                     </table>
-                    <p class="tgl">Dicetak pada: ${new Date().toLocaleString('id-ID')}</p>
-                    <script>
-                        window.onload = function() {
-                            setTimeout(function() { window.print(); }, 1000);
-                        };
-                    <\/script>
+                    <p style="margin-top:50px; text-align:right;">Panitia PPDB MA Nurul Ulum</p>
+                    <script>window.onload = () => { window.print(); window.close(); };<\/script>
                 </body>
                 </html>
-            `;
-
-            printWin.document.write(rekapHtml);
-            printWin.document.close();
+            `);
+            win.document.close();
         }
     </script>
 </body>
