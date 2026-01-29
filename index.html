@@ -17,14 +17,12 @@
             background-size: 20px 20px;
         }
 
-        .step-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .hidden { display: none; }
         
         @media print {
             .no-print { display: none; }
         }
 
-        /* Animasi Loading */
         .loading-shimmer {
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
@@ -39,14 +37,6 @@
 <body class="bg-slate-50">
 
     <script>
-        /** * PENGATURAN ASET */
-        const ASSETS = {
-            logo_sekolah: "./logo.jpg", 
-            // Menggunakan parameter w=800 dan q=60 untuk loading lebih cepat
-            hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=60&w=800",
-            placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
-        };
-
         const SUPABASE_URL = "https://zywhjrzihbzgegjftgof.supabase.co"; 
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5d2hqcnppaGJ6Z2VnamZ0Z29mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2NjEyNDcsImV4cCI6MjA4NTIzNzI0N30.wye-naMsA-6BCtieygaL_V-R_b4YWaGmUHqFRHIEeyI"; 
         
@@ -82,7 +72,7 @@
     <nav class="bg-white/90 backdrop-blur-md shadow-sm p-4 sticky top-0 z-50 no-print">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('beranda')">
-                <img id="nav-logo" src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
+                <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
                 <div>
                     <h1 class="font-bold text-lg text-blue-900 leading-tight uppercase">MA Nurul Ulum</h1>
                     <p class="text-[10px] font-bold text-blue-500 tracking-tighter uppercase">Penerimaan Siswa Baru</p>
@@ -114,33 +104,48 @@
                     <div class="hidden md:block relative">
                         <div class="w-full h-96 bg-blue-600 rounded-[3rem] rotate-3 absolute inset-0 opacity-10"></div>
                         <div class="w-full h-96 bg-slate-200 rounded-[3rem] overflow-hidden relative shadow-2xl border-4 border-white">
-                            <img id="hero-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=60&w=800" class="w-full h-full object-cover" alt="Siswa Sekolah">
+                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=60&w=800" class="w-full h-full object-cover" alt="Siswa Sekolah">
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Footer & Alamat -->
-            <footer id="footer-info" class="bg-slate-900 text-white pt-20 pb-10">
+            <footer id="footer-info" class="bg-[#0a1128] text-white pt-20 pb-10">
                 <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-slate-800 pb-16">
                     <div>
                         <div class="flex items-center space-x-3 mb-6">
-                            <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-12 h-12 brightness-0 invert">
-                            <h4 class="font-black text-xl tracking-tighter uppercase">MA NURUL ULUM</h4>
+                            <div class="w-10 h-10 bg-white rounded flex items-center justify-center">
+                                <img src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-8 h-8 object-contain">
+                            </div>
+                            <h4 class="font-bold text-xl tracking-tight uppercase">MA NURUL ULUM</h4>
                         </div>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            <strong>Alamat Sekolah:</strong><br>
-                            Jl. Raya Batursari No. 01, Batursari, Mranggen,<br>
-                            Kabupaten Demak, Jawa Tengah 59567.
+                        <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+                            Membentuk pribadi unggul yang menguasai ilmu pengetahuan dan berlandaskan iman serta taqwa.
                         </p>
                     </div>
+                    
                     <div>
-                        <h4 class="font-bold mb-6 text-blue-400 uppercase text-sm tracking-widest">Kontak</h4>
-                        <ul class="text-slate-400 text-sm space-y-3">
-                            <li><i class="fas fa-phone mr-2"></i> (024) 1234567</li>
-                            <li><i class="fas fa-envelope mr-2"></i> info@manurululum.sch.id</li>
-                            <li><i class="fab fa-whatsapp mr-2"></i> 0812-3456-7890</li>
-                        </ul>
+                        <h4 class="font-bold mb-6 text-white text-lg">Alamat Kampus</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3 text-slate-400 text-sm">
+                                <i class="fas fa-map-marker-alt mt-1 text-blue-500"></i>
+                                <p>Jl. Raya Batursari No. 01, Batursari, Mranggen,<br>Demak, Jawa Tengah 59567</p>
+                            </div>
+                            <div class="flex items-center space-x-3 text-slate-400 text-sm">
+                                <i class="fas fa-phone-alt text-blue-500"></i>
+                                <p>(024) 1234567 / 0812-3456-7890</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-6 text-white text-lg">Lokasi Maps</h4>
+                        <div class="rounded-2xl overflow-hidden h-48 border border-slate-700 shadow-lg">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.882834578508!2d110.4965!3d-7.0221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708c454e95457f%3A0xc47e33792078696d!2sMA%20Nurul%20Ulum%20Batursari!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
                     </div>
                 </div>
                 <div class="max-w-7xl mx-auto px-6 pt-8 text-center text-slate-500 text-xs">
@@ -152,7 +157,7 @@
         <!-- Section: Pendaftaran -->
         <section id="pendaftaran-section" class="hidden max-w-5xl mx-auto px-6 py-12">
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-100">
-                <div class="p-8 bg-blue-600 text-white">
+                <div class="p-8 bg-blue-600 text-white text-center">
                     <h3 class="text-2xl font-bold">Formulir Pendaftaran</h3>
                     <p class="opacity-80 text-sm">Lengkapi data diri pendaftar di bawah ini.</p>
                 </div>
@@ -173,11 +178,11 @@
 
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="md:col-span-2">
-                                <label class="text-xs font-bold text-slate-400 uppercase">Nama Lengkap</label>
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Nama Lengkap</label>
                                 <input type="text" id="nama" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase">Jenis Kelamin</label>
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Jenis Kelamin</label>
                                 <select id="jenis_kelamin" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                                     <option value="">Pilih...</option>
                                     <option value="Laki-laki">Laki-laki</option>
@@ -185,11 +190,11 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-slate-400 uppercase">NISN</label>
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">NISN</label>
                                 <input type="number" id="nisn" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                             <div class="md:col-span-2">
-                                <label class="text-xs font-bold text-slate-400 uppercase">Asal Sekolah</label>
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Asal Sekolah</label>
                                 <input type="text" id="asal_sekolah" required class="w-full p-3 bg-slate-50 rounded-xl outline-none border focus:border-blue-500">
                             </div>
                         </div>
@@ -201,11 +206,11 @@
         </section>
 
         <!-- Section: Cek Status -->
-        <section id="cek-status-section" class="hidden max-w-5xl mx-auto px-6 py-12">
+        <section id="cek-status-section" class="hidden max-w-6xl mx-auto px-6 py-12">
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border">
                 <div class="p-6 border-b flex justify-between items-center bg-slate-50">
                     <h2 class="font-bold text-xl text-slate-800">Daftar Calon Siswa Terdaftar</h2>
-                    <button onclick="renderData()" class="bg-white border px-4 py-2 rounded-xl text-xs font-bold hover:bg-slate-50 transition">Refresh</button>
+                    <button onclick="renderData()" class="bg-blue-50 text-blue-600 px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-100 transition">Muat Ulang</button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
@@ -238,12 +243,17 @@
 
         <!-- Section: Admin Dashboard -->
         <section id="admin-dashboard-section" class="hidden max-w-7xl mx-auto px-6 py-12">
-            <div class="flex justify-between items-end mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
                 <div>
-                    <h2 class="text-3xl font-black text-slate-900 uppercase">Dashboard Panitia</h2>
+                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tighter">Dashboard Panitia</h2>
                     <p class="text-slate-500">Kelola pendaftar dan verifikasi berkas.</p>
                 </div>
-                <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-bold hover:bg-red-100 transition">Keluar</button>
+                <div class="flex space-x-2">
+                    <button onclick="printRekap()" class="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-emerald-700 transition flex items-center">
+                        <i class="fas fa-file-export mr-2"></i> Cetak Rekap
+                    </button>
+                    <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-6 py-3 rounded-2xl font-bold hover:bg-red-100 transition">Keluar</button>
+                </div>
             </div>
             
             <div class="bg-white rounded-[2rem] shadow-xl overflow-hidden border">
@@ -329,7 +339,6 @@
 
         async function renderData() {
             const tbody = document.getElementById('table-body');
-            // Loader skeleton sederhana
             tbody.innerHTML = `<tr><td colspan="5" class="p-8"><div class="loading-shimmer h-8 w-full rounded"></div></td></tr>`;
             
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
@@ -349,7 +358,7 @@
                             <td class="p-4 text-center font-bold ${statusColor}">${item.status}</td>
                             <td class="p-4 text-center">
                                 <button onclick="printCard('${item.reg}')" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-blue-700 transition">
-                                    <i class="fas fa-print mr-1"></i> CETAK
+                                    <i class="fas fa-print mr-1"></i> CETAK KARTU
                                 </button>
                             </td>
                         </tr>
@@ -373,7 +382,7 @@
                     <tr class="border-b hover:bg-slate-50 transition">
                         <td class="p-5">
                             <div class="flex items-center space-x-4">
-                                <img src="${item.foto}" class="w-12 h-12 rounded-xl object-cover bg-slate-200 border shadow-sm">
+                                <img src="${item.foto}" class="w-12 h-12 rounded-xl object-cover bg-slate-200 border shadow-sm" onerror="this.src='https://via.placeholder.com/50'">
                                 <div>
                                     <div class="font-bold text-slate-800">${item.nama}</div>
                                     <div class="text-[10px] text-slate-400 font-mono uppercase">${item.reg} | ${item.jenis_kelamin}</div>
@@ -391,13 +400,15 @@
                                 <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>❌ TOLAK</option>
                             </select>
                         </td>
-                        <td class="p-5 text-center flex justify-center space-x-2">
-                            <button onclick="printCard('${item.reg}')" class="text-blue-500 hover:text-blue-700 p-2" title="Cetak Kartu">
-                                <i class="fas fa-print"></i>
-                            </button>
-                            <button onclick="deletePendaftar('${item.id}')" class="text-red-300 hover:text-red-600 p-2 transition" title="Hapus Data">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        <td class="p-5 text-center">
+                            <div class="flex justify-center space-x-2">
+                                <button onclick="printCard('${item.reg}')" class="text-blue-500 hover:bg-blue-50 w-10 h-10 rounded-lg flex items-center justify-center transition" title="Cetak Kartu">
+                                    <i class="fas fa-print"></i>
+                                </button>
+                                <button onclick="deletePendaftar('${item.id}')" class="text-red-300 hover:text-red-600 w-10 h-10 rounded-lg flex items-center justify-center transition" title="Hapus Data">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 `).join('');
@@ -419,57 +430,170 @@
         }
 
         async function printCard(reg) {
-            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
-            if (!data) return;
+            const { data, error } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
+            if (error || !data) {
+                alert("Data tidak ditemukan atau error database.");
+                return;
+            }
             
             const win = window.open('', '_blank');
+            if (!win) {
+                alert("Popup diblokir! Harap izinkan popup untuk mencetak kartu.");
+                return;
+            }
+
             win.document.write(`
                 <html>
                 <head>
-                    <title>Kartu Pendaftaran - ${data.nama}</title>
+                    <title>KARTU_PPDB_${data.reg}</title>
                     <style>
-                        body { font-family: 'Segoe UI', Arial, sans-serif; display: flex; justify-content: center; padding: 40px; background: #f8fafc; }
-                        .card { width: 500px; background: white; border: 4px solid #1e3a8a; border-radius: 24px; padding: 30px; position: relative; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-                        .header { text-align:center; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-                        .header h2 { margin:0; color:#1e3a8a; letter-spacing: -1px; }
-                        .header p { font-size:11px; margin:5px 0; color: #64748b; }
-                        .content { display:flex; gap: 25px; }
-                        .photo { width:130px; height:170px; object-fit:cover; border: 3px solid #f1f5f9; border-radius:15px; background: #f8fafc; }
+                        body { font-family: 'Inter', sans-serif; display: flex; justify-content: center; padding: 40px; background: #f1f5f9; }
+                        .card { width: 550px; background: white; border: 2px solid #1e3a8a; border-radius: 20px; padding: 30px; position: relative; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+                        .header { text-align:center; margin-bottom: 25px; border-bottom: 2px dashed #cbd5e1; padding-bottom: 15px; }
+                        .header h2 { margin:0; color:#1e3a8a; font-size: 24px; font-weight: 800; }
+                        .header p { font-size:10px; margin:4px 0; color: #64748b; }
+                        .content { display:flex; gap: 20px; }
+                        .photo { width:150px; height:200px; object-fit:cover; border: 4px solid #f8fafc; border-radius:12px; background: #eee; }
                         .details { flex:1; }
-                        .label { font-size:9px; color:#94a3b8; font-weight: bold; text-transform: uppercase; margin-top: 10px; }
-                        .value { font-weight:bold; font-size:15px; color: #1e293b; margin-bottom:8px; }
-                        .reg-no { font-size: 22px; color: #2563eb; }
-                        .status-badge { margin-top:25px; padding:12px; background:#eff6ff; border-radius:12px; text-align:center; border: 1px solid #dbeafe; }
-                        .status-text { font-size:14px; font-weight:bold; color:#1e3a8a; }
-                        .footer { font-size:9px; color:#94a3b8; margin-top:25px; text-align:center; font-style: italic; }
-                        @media print { body { background: white; padding: 0; } .card { box-shadow: none; border: 2px solid #000; } }
+                        .item { margin-bottom: 12px; }
+                        .label { font-size:9px; color:#94a3b8; font-weight: bold; text-transform: uppercase; }
+                        .value { font-weight:bold; font-size:14px; color: #1e293b; }
+                        .reg-no { font-size: 24px; color: #2563eb; display:block; margin-top:5px; }
+                        .status { margin-top:20px; padding:10px; background:#f0f9ff; border-radius:10px; text-align:center; font-weight:bold; color:#1e40af; border: 1px solid #bae6fd; }
+                        @media print { 
+                            body { background: white; padding: 0; } 
+                            .card { box-shadow: none; border: 1px solid #000; margin: 20px auto; }
+                            .no-print { display: none; }
+                        }
                     </style>
                 </head>
                 <body>
                     <div class="card">
                         <div class="header">
-                            <h2>MA NURUL ULUM</h2>
-                            <p>Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah</p>
+                            <h2>MA NURUL ULUM BATURSARI</h2>
+                            <p>Jl. Raya Batursari No. 01, Mranggen, Demak, Jawa Tengah 59567</p>
                         </div>
                         <div class="content">
                             <img src="${data.foto || 'https://via.placeholder.com/150'}" class="photo">
                             <div class="details">
-                                <div class="label">Nama Lengkap</div>
-                                <div class="value">${data.nama.toUpperCase()}</div>
-                                <div class="label">Nomor Registrasi</div>
-                                <div class="value reg-no">${data.reg}</div>
-                                <div class="label">NISN / Asal Sekolah</div>
-                                <div class="value">${data.nisn} / ${data.asal_sekolah}</div>
-                                <div class="label">Jenis Kelamin</div>
-                                <div class="value">${data.jenis_kelamin}</div>
+                                <div class="item">
+                                    <div class="label">Nama Lengkap</div>
+                                    <div class="value">${data.nama.toUpperCase()}</div>
+                                </div>
+                                <div class="item">
+                                    <div class="label">Nomor Registrasi</div>
+                                    <div class="value reg-no">${data.reg}</div>
+                                </div>
+                                <div class="item">
+                                    <div class="label">NISN / Sekolah Asal</div>
+                                    <div class="value">${data.nisn} / ${data.asal_sekolah}</div>
+                                </div>
+                                <div class="item">
+                                    <div class="label">Jenis Kelamin</div>
+                                    <div class="value">${data.jenis_kelamin}</div>
+                                </div>
+                                <div class="status">STATUS: ${data.status.toUpperCase()}</div>
                             </div>
                         </div>
-                        <div class="status-badge">
-                            <div class="status-text">STATUS: ${data.status.toUpperCase()}</div>
-                        </div>
-                        <p class="footer">Dicetak otomatis oleh Sistem PPDB Online MA Nurul Ulum. Harap simpan kartu ini sebagai bukti pendaftaran.</p>
                     </div>
-                    <script>window.onload = () => { setTimeout(() => { window.print(); window.close(); }, 500); };<\/script>
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                            }, 500);
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `);
+            win.document.close();
+        }
+
+        async function printRekap() {
+            const { data, error } = await supabaseClient.from('pendaftar').select('*').order('nama', {ascending: true});
+            if (error || !data) {
+                alert("Gagal mengambil data rekap.");
+                return;
+            }
+
+            const win = window.open('', '_blank');
+            if (!win) {
+                alert("Popup diblokir! Harap izinkan popup.");
+                return;
+            }
+
+            const date = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            win.document.write(`
+                <html>
+                <head>
+                    <title>REKAP_PENDAFTAR_PPDB</title>
+                    <style>
+                        body { font-family: 'Arial', sans-serif; padding: 30px; color: #333; }
+                        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #000; padding-bottom: 10px; }
+                        .header h1 { margin: 0; font-size: 20px; }
+                        .header p { margin: 5px 0; font-size: 12px; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 12px; }
+                        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                        th { background-color: #f2f2f2; font-weight: bold; text-align: center; }
+                        .center { text-align: center; }
+                        .footer { margin-top: 40px; float: right; width: 250px; text-align: center; font-size: 13px; }
+                        @media print {
+                            @page { size: landscape; }
+                            button { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>LAPORAN REKAPITULASI PENDAFTARAN SISWA BARU</h1>
+                        <h1>MA NURUL ULUM BATURSARI</h1>
+                        <p>Jl. Raya Batursari No. 01, Batursari, Mranggen, Demak, Jawa Tengah 59567</p>
+                    </div>
+                    
+                    <p>Dicetak pada: ${date}</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="30">No</th>
+                                <th width="100">No. Reg</th>
+                                <th>Nama Lengkap</th>
+                                <th width="80">L/P</th>
+                                <th>NISN</th>
+                                <th>Asal Sekolah</th>
+                                <th width="100">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.map((item, index) => `
+                                <tr>
+                                    <td class="center">${index + 1}</td>
+                                    <td class="center"><b>${item.reg}</b></td>
+                                    <td>${item.nama.toUpperCase()}</td>
+                                    <td class="center">${item.jenis_kelamin === 'Laki-laki' ? 'L' : 'P'}</td>
+                                    <td>${item.nisn}</td>
+                                    <td>${item.asal_sekolah}</td>
+                                    <td class="center">${item.status}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="footer">
+                        <p>Demak, ${date}</p>
+                        <p>Panitia PPDB,</p>
+                        <br><br><br>
+                        <p><b>( ..................................... )</b></p>
+                    </div>
+
+                    <script>
+                        window.onload = function() {
+                            setTimeout(function() {
+                                window.print();
+                            }, 500);
+                        };
+                    <\/script>
                 </body>
                 </html>
             `);
