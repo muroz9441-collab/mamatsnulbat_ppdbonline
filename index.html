@@ -23,6 +23,17 @@
         @media print {
             .no-print { display: none; }
         }
+
+        /* Animasi Loading */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -31,7 +42,8 @@
         /** * PENGATURAN ASET */
         const ASSETS = {
             logo_sekolah: "./logo.jpg", 
-            hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
+            // Menggunakan parameter w=800 dan q=60 untuk loading lebih cepat
+            hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=60&w=800",
             placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
         };
 
@@ -70,7 +82,7 @@
     <nav class="bg-white/90 backdrop-blur-md shadow-sm p-4 sticky top-0 z-50 no-print">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('beranda')">
-                <img id="nav-logo" src="" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
+                <img id="nav-logo" src="./logo.jpg" onerror="this.src='https://via.placeholder.com/40?text=Logo'" class="w-10 h-10 object-contain rounded-lg shadow-sm">
                 <div>
                     <h1 class="font-bold text-lg text-blue-900 leading-tight uppercase">MA Nurul Ulum</h1>
                     <p class="text-[10px] font-bold text-blue-500 tracking-tighter uppercase">Penerimaan Siswa Baru</p>
@@ -102,7 +114,7 @@
                     <div class="hidden md:block relative">
                         <div class="w-full h-96 bg-blue-600 rounded-[3rem] rotate-3 absolute inset-0 opacity-10"></div>
                         <div class="w-full h-96 bg-slate-200 rounded-[3rem] overflow-hidden relative shadow-2xl border-4 border-white">
-                            <img id="hero-img" src="" class="w-full h-full object-cover" alt="Siswa Sekolah">
+                            <img id="hero-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=60&w=800" class="w-full h-full object-cover" alt="Siswa Sekolah">
                         </div>
                     </div>
                 </div>
@@ -253,11 +265,6 @@
     </main>
 
     <script>
-        window.onload = function() {
-            document.getElementById('nav-logo').src = ASSETS.logo_sekolah;
-            document.getElementById('hero-img').src = ASSETS.hero_image;
-        };
-
         function showSection(name) {
             const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
             sections.forEach(s => {
@@ -322,10 +329,16 @@
 
         async function renderData() {
             const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center">Memuat data...</td></tr>';
+            // Loader skeleton sederhana
+            tbody.innerHTML = `<tr><td colspan="5" class="p-8"><div class="loading-shimmer h-8 w-full rounded"></div></td></tr>`;
+            
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             
             if(data) {
+                if(data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="p-8 text-center text-slate-400">Belum ada data pendaftar.</td></tr>';
+                    return;
+                }
                 tbody.innerHTML = data.map(item => {
                     let statusColor = item.status === 'Diterima' ? 'text-green-600' : (item.status === 'Ditolak' ? 'text-red-600' : 'text-amber-600');
                     return `
@@ -347,7 +360,8 @@
 
         async function renderAdminData() {
             const tbody = document.getElementById('admin-table-body');
-            tbody.innerHTML = '<tr><td colspan="4" class="p-8 text-center text-slate-400">Memuat data pendaftar...</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="4" class="p-8"><div class="loading-shimmer h-12 w-full rounded-xl"></div></td></tr>`;
+            
             const { data } = await supabaseClient.from('pendaftar').select('*').order('created_at', {ascending: false});
             
             if(data) {
