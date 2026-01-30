@@ -13,7 +13,6 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .hero-pattern { background-color: #ffffff; background-image: radial-gradient(#3b82f6 0.5px, #ffffff 0.5px); background-size: 20px 20px; }
-        .step-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }
         .hidden { display: none; }
     </style>
 </head>
@@ -22,16 +21,11 @@
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <img src="logo.jpg" class="h-12 w-12 rounded-xl shadow-md" alt="Logo">
-                <div>
-                    <h1 class="text-xl font-bold text-blue-900 leading-none">MA NURUL ULUM</h1>
-                    <p class="text-[10px] text-blue-500 font-bold tracking-widest mt-1 uppercase">Penerimaan Siswa Baru</p>
-                </div>
+                <h1 class="text-xl font-bold text-blue-900 leading-none">MA NURUL ULUM</h1>
             </div>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">Beranda</a>
-                <a href="#daftar" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors">Daftar Pendaftar</a>
-                <button onclick="showAdminLogin()" class="text-sm font-semibold text-slate-600 hover:text-blue-600 transition-colors italic">Panel Admin</button>
-                <button onclick="scrollToDaftar()" class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">Daftar Sekarang</button>
+            <div class="flex items-center gap-4">
+                <button onclick="showAdminLogin()" class="text-sm font-semibold text-slate-600 italic">Panel Admin</button>
+                <button onclick="document.getElementById('daftar-section').scrollIntoView()" class="bg-blue-600 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-blue-700 transition-all">Daftar</button>
             </div>
         </div>
     </nav>
@@ -39,67 +33,48 @@
     <section class="pt-32 pb-20 px-6 hero-pattern">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div>
-                <span class="bg-blue-50 text-blue-600 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase mb-6 inline-block">Tahun Pelajaran 2026/2027</span>
-                <h2 class="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] mb-8">Masa Depan <span class="text-blue-600">Cemerlang</span> Dimulai Di Sini</h2>
-                <p class="text-lg text-slate-600 leading-relaxed mb-10 max-w-lg italic text-justify">Selamat datang di Portal Pendaftaran Online MA Nurul Ulum Batursari. Kami mencetak generasi yang berakhlaqul karimah dan unggul dalam prestasi.</p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button onclick="scrollToDaftar()" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-bold hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all flex items-center justify-center gap-2">Mulai Daftar <i class="fas fa-arrow-right text-sm"></i></button>
-                    <button class="bg-white text-slate-700 px-8 py-4 rounded-2xl font-bold border border-slate-200 hover:bg-slate-50 transition-all flex items-center justify-center gap-2 italic">Panduan Pendaftaran</button>
-                </div>
-            </div>
-            <div class="relative group">
-                <div class="absolute -inset-4 bg-blue-100/50 rounded-[2rem] blur-2xl group-hover:bg-blue-200/50 transition-all"></div>
-                <img id="hero-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000" class="relative rounded-[2rem] shadow-2xl w-full h-[500px] object-cover border-8 border-white" alt="Siswa Sekolah">
+                <h2 class="text-5xl md:text-6xl font-black text-slate-900 leading-tight mb-8">Masa Depan Cemerlang Dimulai Di Sini</h2>
+                <p class="text-lg text-slate-600 mb-10 italic">Penerimaan Peserta Didik Baru MA Nurul Ulum Batursari.</p>
+                <img id="hero-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1000" class="rounded-[2rem] shadow-2xl w-full h-[400px] object-cover border-8 border-white">
             </div>
         </div>
     </section>
 
     <section id="admin-dashboard-section" class="hidden max-w-7xl mx-auto px-6 py-12">
-        <div class="flex justify-between items-end mb-8">
-            <div>
-                <h2 class="text-3xl font-black text-slate-900">Dashboard Panitia</h2>
-                <p class="text-slate-500">Manajemen Pendaftar Online</p>
-            </div>
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-3xl font-black text-slate-900">Dashboard Panitia</h2>
             <div class="flex gap-3">
-                <button onclick="exportToPDF()" class="bg-red-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-700 shadow-lg transition-all flex items-center">
+                <button onclick="exportToPDF()" class="bg-red-600 text-white px-5 py-3 rounded-2xl text-sm font-bold shadow-lg hover:bg-red-700">
                     <i class="fas fa-file-pdf mr-2"></i> Export PDF
                 </button>
-                <button onclick="exportToCSV()" class="bg-green-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-green-700 shadow-lg transition-all flex items-center italic">
-                    <i class="fas fa-file-excel mr-2"></i> Export Excel
-                </button>
-                <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-100 transition-all italic">Keluar</button>
+                <button onclick="location.reload()" class="bg-slate-200 px-5 py-3 rounded-2xl text-sm font-bold">Keluar</button>
             </div>
         </div>
-
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold uppercase tracking-wider">
-                        <tr>
-                            <th class="p-6">Siswa</th>
-                            <th class="p-6">Informasi</th>
-                            <th class="p-6">Dokumen</th>
-                            <th class="p-6 text-center">Verifikasi</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-table-body" class="divide-y divide-slate-50">
-                        </tbody>
-                </table>
-            </div>
+        <div class="bg-white rounded-3xl shadow-xl overflow-x-auto border border-slate-100">
+            <table class="w-full text-left">
+                <thead class="bg-slate-50 border-b">
+                    <tr>
+                        <th class="p-6">Siswa</th>
+                        <th class="p-6">Dokumen</th>
+                        <th class="p-6">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body" class="divide-y divide-slate-50"></tbody>
+            </table>
         </div>
     </section>
 
-    <div id="modal-doc" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-900/90 p-6 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 relative shadow-2xl">
-            <button onclick="closeDoc()" class="absolute -top-4 -right-4 bg-white text-slate-900 w-12 h-12 rounded-full shadow-xl hover:bg-slate-50 transition-all flex items-center justify-center font-bold text-xl">&times;</button>
-            <h3 id="doc-title" class="text-2xl font-black text-slate-900 mb-6 text-center">Dokumen Pendaftar</h3>
-            <img id="doc-img" src="" class="w-full h-auto rounded-2xl shadow-inner border border-slate-100" alt="Preview">
+    <div id="modal-doc" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 p-6">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 relative">
+            <button onclick="this.parentElement.parentElement.classList.add('hidden')" class="absolute -top-4 -right-4 bg-white w-10 h-10 rounded-full font-bold shadow-xl text-xl">&times;</button>
+            <h3 id="doc-title" class="text-xl font-bold mb-4 text-center"></h3>
+            <img id="doc-img" src="" class="w-full h-auto rounded-xl shadow-inner border">
         </div>
     </div>
-
     <script>
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL'; // Isikan URL Anda
-        const SUPABASE_KEY = 'YOUR_SUPABASE_KEY'; // Isikan Key Anda
+        // MASUKKAN URL & KEY SUPABASE ANDA DI SINI
+        const SUPABASE_URL = 'https://xyz.supabase.co'; 
+        const SUPABASE_KEY = 'eyJh...'; 
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         let pendaftarList = [];
@@ -115,24 +90,98 @@
         function renderAdminTable() {
             const tbody = document.getElementById('admin-table-body');
             tbody.innerHTML = pendaftarList.map(item => `
+                <tr>
+                    <td class="p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="${item.foto || 'logo.jpg'}" class="w-12 h-12 rounded-xl object-cover border">
+                            <div>
+                                <div class="font-bold text-slate-900">${item.nama}</div>
+                                <div class="text-[10px] text-blue-500 font-bold uppercase">${item.reg || 'MENUNGGU'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 space-y-1">
+                        <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 rounded font-bold italic">LIHAT IJAZAH</button>
+                        <button onclick="printCard('${item.reg}')" class="block w-full text-left text-[10px] bg-red-50 text-red-600 p-1 rounded font-bold italic underline">CETAK KARTU</button>
+                    </td>
+                    <td class="p-6">
+                        <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] border rounded p-1 font-bold">
+                            <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>MENUNGGU</option>
+                            <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>DITERIMA</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+            doc.setFontSize(18);
+            doc.text('DAFTAR PENDAFTAR PPDB MA NURUL ULUM', 14, 15);
+            const headers = [["No", "Reg", "Nama", "NISN", "Asal Sekolah", "Status"]];
+            const dataRow = pendaftarList.map((p, index) => [index + 1, p.reg || '-', p.nama, p.nisn, p.asal_sekolah, p.status]);
+            doc.autoTable({ startY: 25, head: headers, body: dataRow, theme: 'grid' });
+            doc.save('Data_Pendaftar.pdf');
+        }
+
+        function printCard(reg) {
+            const data = pendaftarList.find(p => p.reg === reg);
+            if (!data) return alert("Data tidak ditemukan");
+            const win = window.open('', '_blank');
+            win.document.write(`<html><body style="font-family:sans-serif; padding:20px;" onload="window.print(); window.close();">
+                <div style="border:3px solid #1e3a8a; padding:20px; width:400px; border-radius:15px; text-align:center;">
+                    <h2>KARTU PPDB MA NURUL ULUM</h2>
+                    <hr><p>Nama: <b>${data.nama}</b></p><p>Reg: ${data.reg}</p>
+                </div></body></html>`);
+        }
+
+        function viewDoc(src, title) {
+            document.getElementById('doc-title').innerText = title;
+            document.getElementById('doc-img').src = src;
+            document.getElementById('modal-doc').classList.remove('hidden');
+            document.getElementById('modal-doc').classList.add('flex');
+        }
+
+        function showAdminLogin() {
+            const pw = prompt("Password Admin:");
+            if (pw === "admin123") {
+                document.getElementById('admin-dashboard-section').classList.remove('hidden');
+                fetchPendaftar();
+            }
+        }
+    </script>
+</body>
+</html>
+// Lanjutan baris 156
+        async function fetchPendaftar() {
+            const { data, error } = await supabaseClient
+                .from('pendaftar')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (data) {
+                pendaftarList = data;
+                renderAdminTable();
+            }
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = pendaftarList.map(item => `
                 <tr class="hover:bg-slate-50/50 transition-colors">
                     <td class="p-6">
                         <div class="flex items-center gap-4">
-                            <img src="${item.foto || 'logo.jpg'}" class="w-12 h-12 rounded-xl object-cover shadow-sm">
+                            <img src="${item.foto || 'logo.jpg'}" class="w-12 h-12 rounded-xl object-cover shadow-sm border">
                             <div>
                                 <div class="font-bold text-slate-900">${item.nama}</div>
                                 <div class="text-[10px] font-bold text-blue-500 uppercase tracking-tight">${item.reg || 'Pending'}</div>
                             </div>
                         </div>
                     </td>
-                    <td class="p-6">
-                        <div class="font-bold text-slate-700 text-xs">${item.asal_sekolah}</div>
-                        <div class="text-[10px] text-slate-400 mt-1 uppercase">${item.jenis_kelamin} | NISN: ${item.nisn}</div>
-                    </td>
                     <td class="p-6 space-y-1">
                         <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 rounded font-bold italic">IJAZAH</button>
                         <button onclick="viewDoc('${item.file_kk}', 'KK - ${item.nama}')" class="block w-full text-left text-[10px] bg-purple-50 text-purple-600 p-1 rounded font-bold italic">KK</button>
-                        <button onclick="printCard('${item.reg}')" class="block w-full text-left text-[10px] bg-red-50 text-red-600 p-1 rounded font-bold italic">CETAK KARTU</button>
+                        <button onclick="printCard('${item.reg}')" class="block w-full text-left text-[10px] bg-red-50 text-red-600 p-1 rounded font-bold italic underline">CETAK KARTU</button>
                     </td>
                     <td class="p-6 text-center">
                         <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] font-bold border rounded p-1">
@@ -168,24 +217,17 @@
             const data = pendaftarList.find(p => p.reg === reg);
             if (!data) return alert("Data tidak ditemukan");
             const win = window.open('', '_blank');
-            win.document.write(`
+            win.document.write(\`
                 <html>
-                <head><title>Kartu PPDB</title></head>
-                <body style="font-family:sans-serif; padding:40px;" onload="window.print(); window.close();">
-                    <div style="border:5px solid #1e3a8a; padding:20px; width:450px; border-radius:20px; text-align:center;">
-                        <h2>KARTU PENDAFTARAN PPDB</h2>
-                        <h3>MA NURUL ULUM BATURSARI</h3>
-                        <hr>
-                        <img src="${data.foto || 'logo.jpg'}" style="width:120px; height:150px; object-fit:cover; margin:10px; border:1px solid #ccc;">
-                        <div style="text-align:left; margin-left:50px;">
-                            <p><b>No Reg:</b> ${data.reg || '-'}</p>
-                            <p><b>Nama:</b> ${data.nama}</p>
-                            <p><b>Asal:</b> ${data.asal_sekolah}</p>
-                        </div>
+                <body style="font-family:sans-serif; padding:20px;" onload="window.print(); window.close();">
+                    <div style="border:3px solid #1e3a8a; padding:20px; width:400px; border-radius:15px; text-align:center;">
+                        <h2>KARTU PPDB MA NURUL ULUM</h2>
+                        <hr><p>Nama: <b>\${data.nama}</b></p><p>Reg: \${data.reg}</p>
                     </div>
                 </body>
                 </html>
-            `);
+            \`);
+            win.document.close();
         }
 
         function viewDoc(src, title) {
@@ -200,12 +242,113 @@
         }
 
         function showAdminLogin() {
-            const pw = prompt("Masukkan Password Admin:");
+            const pw = prompt("Password Admin:");
             if (pw === "admin123") {
                 document.getElementById('admin-dashboard-section').classList.remove('hidden');
                 fetchPendaftar();
             }
         }
     </script>
+</body>
+</html>
+// --- LANJUTAN BARIS 254 SAMPAI SELESAI ---
+        async function fetchPendaftar() {
+            const { data, error } = await supabaseClient
+                .from('pendaftar')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (data) {
+                pendaftarList = data;
+                renderAdminTable();
+            }
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = pendaftarList.map(item => `
+                <tr class="hover:bg-slate-50/50 transition-colors">
+                    <td class="p-6">
+                        <div class="flex items-center gap-4">
+                            <img src="${item.foto || 'logo.jpg'}" class="w-12 h-12 rounded-xl object-cover shadow-sm border">
+                            <div>
+                                <div class="font-bold text-slate-900">${item.nama}</div>
+                                <div class="text-[10px] font-bold text-blue-500 uppercase tracking-tight">${item.reg || 'Pending'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-6 space-y-1">
+                        <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 rounded font-bold italic">IJAZAH</button>
+                        <button onclick="viewDoc('${item.file_kk}', 'KK - ${item.nama}')" class="block w-full text-left text-[10px] bg-purple-50 text-purple-600 p-1 rounded font-bold italic">KK</button>
+                        <button onclick="printCard('${item.reg}')" class="block w-full text-left text-[10px] bg-red-50 text-red-600 p-1 rounded font-bold italic underline">CETAK KARTU</button>
+                    </td>
+                    <td class="p-6 text-center">
+                        <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] font-bold border rounded p-1">
+                            <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>MENUNGGU</option>
+                            <option value="Diterima" ${item.status === 'Diterima' ? 'selected' : ''}>DITERIMA</option>
+                            <option value="Ditolak" ${item.status === 'Ditolak' ? 'selected' : ''}>DITOLAK</option>
+                        </select>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+            doc.setFontSize(18);
+            doc.text('DAFTAR PENDAFTAR PPDB MA NURUL ULUM', 14, 15);
+            const headers = [["No", "Reg", "Nama Lengkap", "NISN", "Asal Sekolah", "Status"]];
+            const dataRow = pendaftarList.map((p, index) => [
+                index + 1, p.reg || '-', p.nama, p.nisn, p.asal_sekolah || '-', p.status || 'MENUNGGU'
+            ]);
+            doc.autoTable({
+                startY: 25,
+                head: headers,
+                body: dataRow,
+                theme: 'grid',
+                headStyles: { fillColor: [30, 58, 138] }
+            });
+            doc.save('Data_Pendaftar_PPDB.pdf');
+        }
+
+        function printCard(reg) {
+            const data = pendaftarList.find(p => p.reg === reg);
+            if (!data) return alert("Data tidak ditemukan");
+            const win = window.open('', '_blank');
+            win.document.write(`
+                <html>
+                <body style="font-family:sans-serif; padding:40px; text-align:center;" onload="window.print(); window.close();">
+                    <div style="border:5px solid #1e3a8a; padding:20px; border-radius:20px; display:inline-block;">
+                        <h2>KARTU PENDAFTARAN PPDB</h2>
+                        <hr>
+                        <p>Nama: <b>${data.nama}</b></p>
+                        <p>No Registrasi: <b>${data.reg || '-'}</b></p>
+                    </div>
+                </body>
+                </html>
+            `);
+win.document.close();
+    }
+
+    function viewDoc(src, title) {
+        const modal = document.getElementById('modal-doc');
+        document.getElementById('doc-title').innerText = title;
+        document.getElementById('doc-img').src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeDoc() {
+        document.getElementById('modal-doc').classList.add('hidden');
+    }
+
+    function showAdminLogin() {
+        const pw = prompt("Password Admin:");
+        if (pw === "admin123") {
+            document.getElementById('admin-dashboard-section').classList.remove('hidden');
+            fetchPendaftar();
+        }
+    }
+</script>
 </body>
 </html>
