@@ -7,6 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
@@ -251,8 +253,8 @@
                     <p class="text-slate-500">Manajemen Pendaftar Online</p>
                 </div>
                 <div class="flex gap-3">
-                    <button onclick="exportToCSV()" class="bg-green-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-green-700 transition flex items-center shadow-lg">
-                        <i class="fas fa-file-pdf mr-2"></i> Export PDF
+                    <button onclick="exportToPDF()" class="bg-red-600 text-white px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-700 shadow-lg transition-all flex items-center">
+    <i class="fas fa-file-pdf mr-2"></i> Export PDF
                     </button>
                     <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 px-5 py-3 rounded-2xl text-sm font-bold hover:bg-red-100 transition">Logout</button>
                 </div>
@@ -451,7 +453,28 @@
             await supabaseClient.from('pendaftar').update({ status }).eq('id', id);
             renderAdminTable();
         }
+async function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('l', 'mm', 'a4');
 
+    doc.setFontSize(18);
+    doc.text('DAFTAR PENDAFTAR PPDB MA NURUL ULUM', 14, 15);
+    
+    const headers = [["No", "No. Registrasi", "Nama Lengkap", "NISN", "Asal Sekolah", "Status"]];
+    const dataRow = pendaftarList.map((p, index) => [
+        index + 1, p.reg || '-', p.nama, p.nisn, p.asal_sekolah || '-', p.status || 'MENUNGGU'
+    ]);
+
+    doc.autoTable({
+        startY: 25,
+        head: headers,
+        body: dataRow,
+        theme: 'grid',
+        headStyles: { fillColor: [30, 58, 138] }
+    });
+
+    doc.save('Data_Pendaftar_PPDB.pdf');
+}
         function viewDoc(src, title) {
             document.getElementById('doc-title').innerText = title;
             document.getElementById('doc-img').src = src;
@@ -463,38 +486,47 @@
             document.getElementById('modal-doc').classList.add('hidden');
         }
 
-        async function printCard(reg) {
-            const { data } = await supabaseClient.from('pendaftar').select('*').eq('reg', reg).single();
-            if (!data) return;
-            const win = window.open('', '_blank');
-            win.document.write(`
-                <html>
-                <head><title>Kartu PPDB</title></head>
-                <body style="font-family:sans-serif; padding:40px; border:5px solid #1e3a8a;">
-                    <h2 style="text-align:center; color:#1e3a8a;">KARTU PENDAFTARAN PPDB</h2>
-                    <hr>
-                    <table style="width:100%;">
-                        <tr>
-                            <td style="width:150px;"><img src="${data.foto}" style="width:150px; height:200px; object-fit:cover; border:1px solid #000;"></td>
-                            <td style="vertical-align:top; padding-left:20px;">
-                                <h3 style="margin-top:0;">${data.nama}</h3>
-                                <p>No. Registrasi: <b>${data.reg}</b></p>
-                                <p>NISN: ${data.nisn}</p>
-                                <p>Asal Sekolah: ${data.asal_sekolah}</p>
-                                <p>Status: ${data.status}</p>
-                            </td>
-                        </tr>
-                    </table>
-                    <p style="margin-top:50px; text-align:right;">Panitia PPDB MA Nurul Ulum</p>
-                    <script>window.onload = () => { window.print(); window.close(); };<\/script>
-                </body>
-                </html>
-            `);
-            win.document.close();
-        }
-    </script>
-</body>
+function printCard(reg) {
+    const data = pendaftarList.find(p => p.reg === reg);
+    if (!data) return alert("Data tidak ditemukan");
+
+    const win = window.open('', '_blank');
+    win.document.write(`
+        <html>
+        <head>
+            <title>Cetak Kartu - ${data.nama}</title>
+            <style>
+                body { font-family: sans-serif; padding: 40px; }
+                .card { border: 5px solid #1e3a8a; padding: 20px; width: 500px; margin: auto; border-radius: 15px; }
+                .header { text-align: center; color: #1e3a8a; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+                table { width: 100%; margin-top: 20px; }
+                .photo { width: 150px; height: 200px; object-fit: cover; border: 1px solid #ccc; }
+            </style>
+        </head>
+        <body onload="window.print(); window.close();">
+            <div class="card">
+                <div class="header">
+                    <h2>KARTU PENDAFTARAN PPDB</h2>
+                    <h3>MA NURUL ULUM BATURSARI</h3>
+                </div>
+                <table>
+                    <tr>
+                        <td width="160"><img src="${data.foto || 'https://via.placeholder.com/150'}" class="photo"></td>
+                        <td valign="top" style="padding-left:20px;">
+                            <p><b>No Reg:</b> ${data.reg || '-'}</p>
+                            <p><b>Nama:</b> ${data.nama}</p>
+                            <p><b>NISN:</b> ${data.nisn}</p>
+                            <p><b>Asal:</b> ${data.asal_sekolah || '-'}</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </body>
+        </html>
+    `);
+}
 </html>
+
 
 
 
