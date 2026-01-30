@@ -35,12 +35,11 @@
          */
         const ASSETS = {
 const ASSETS = {
-    logo_sekolah: "./logo.jpg", 
-    hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
-    placeholder_user: "https://ui-avatars.com/api/?name=Siswa&background=random" // Gunakan alternatif yang lebih stabil
-};
+            logo_sekolah: "./logo.jpg", 
+            hero_image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000",
+            placeholder_user: "https://via.placeholder.com/150?text=Foto+Siswa"
         };
-
+        
         const SUPABASE_URL = "https://zywhjrzihbzgegjftgof.supabase.co"; 
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp5d2hqcnppaGJ6Z2VnamZ0Z29mIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2NjEyNDcsImV4cCI6MjA4NTIzNzI0N30.wye-naMsA-6BCtieygaL_V-R_b4YWaGmUHqFRHIEeyI"; 
         
@@ -109,7 +108,7 @@ const ASSETS = {
                     <div class="hidden md:block relative">
                         <div class="w-full h-96 bg-blue-600 rounded-[3rem] rotate-3 absolute inset-0 opacity-10"></div>
                         <div class="w-full h-96 bg-slate-200 rounded-[3rem] overflow-hidden relative shadow-2xl border-4 border-white">
-                            <img id="hero-img" src="" class="w-full h-full object-cover" alt="Siswa Sekolah">
+                            <img id="hero-img" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover" alt="Siswa Sekolah">
                         </div>
                     </div>
                 </div>
@@ -490,6 +489,7 @@ const ASSETS = {
     </script>
 </body>
 </html>
+
 
 
 
