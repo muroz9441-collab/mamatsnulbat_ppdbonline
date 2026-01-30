@@ -459,7 +459,34 @@ async function exportToPDF() {
 
     doc.setFontSize(18);
     doc.text('DAFTAR PENDAFTAR PPDB MA NURUL ULUM', 14, 15);
-    
+    // Tambahkan baris ini di baris 461
+async function exportToPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('l', 'mm', 'a4');
+
+    doc.setFontSize(18);
+    doc.text('DAFTAR PENDAFTAR PPDB MA NURUL ULUM', 14, 15);
+
+    const headers = [["No", "No. Registrasi", "Nama Lengkap", "NISN", "Asal Sekolah", "Status"]];
+    const dataRow = pendaftarList.map((p, index) => [
+        index + 1, 
+        p.reg || '-', 
+        p.nama, 
+        p.nisn, 
+        p.asal_sekolah || '-', 
+        p.status || 'MENUNGGU'
+    ]);
+
+    doc.autoTable({
+        startY: 25,
+        head: headers,
+        body: dataRow,
+        theme: 'grid',
+        headStyles: { fillColor: [30, 58, 138] }
+    });
+
+    doc.save('Data_Pendaftar_PPDB.pdf');
+} // Pastikan ada tanda tutup kurung kurawal ini
     const headers = [["No", "No. Registrasi", "Nama Lengkap", "NISN", "Asal Sekolah", "Status"]];
     const dataRow = pendaftarList.map((p, index) => [
         index + 1, p.reg || '-', p.nama, p.nisn, p.asal_sekolah || '-', p.status || 'MENUNGGU'
@@ -526,6 +553,7 @@ function printCard(reg) {
     `);
 }
 </html>
+
 
 
 
