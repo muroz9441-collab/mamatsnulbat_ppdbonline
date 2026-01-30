@@ -424,6 +424,7 @@
                         <td class="p-4 space-y-1">
                             <button onclick="viewDoc('${item.file_ijazah}', 'Ijazah - ${item.nama}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 px-2 rounded font-bold">IJAZAH</button>
                             <button onclick="viewDoc('${item.file_kk}', 'KK - ${item.nama}')" class="block w-full text-left text-[10px] bg-purple-50 text-purple-600 p-1 px-2 rounded font-bold">KK</button>
+                            <button onclick="printCard('${item.reg}')" class="block w-full text-left text-[10px] bg-blue-50 text-blue-600 p-1 rounded mt-1 font-bold">Cetak Kartu</button>
                         </td>
                         <td class="p-4 text-center">
                             <select onchange="updateStatus('${item.id}', this.value)" class="text-[10px] font-bold border rounded p-1">
@@ -517,36 +518,29 @@ function printCard(reg) {
         <head>
             <title>Cetak Kartu - ${data.nama}</title>
             <style>
-                body { font-family: sans-serif; padding: 40px; }
-                .card { border: 5px solid #1e3a8a; padding: 20px; width: 500px; margin: auto; border-radius: 15px; }
-                .header { text-align: center; color: #1e3a8a; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-                table { width: 100%; margin-top: 20px; }
-                .photo { width: 150px; height: 200px; object-fit: cover; border: 1px solid #ccc; }
+                body { font-family: sans-serif; padding: 20px; }
+                .card { border: 3px solid #1e3a8a; padding: 15px; width: 450px; border-radius: 10px; }
+                .header { text-align: center; border-bottom: 1px solid #eee; margin-bottom: 10px; }
+                .photo { width: 100px; height: 130px; border: 1px solid #ccc; object-fit: cover; }
             </style>
         </head>
         <body onload="window.print(); window.close();">
             <div class="card">
-                <div class="header">
-                    <h2>KARTU PENDAFTARAN PPDB</h2>
-                    <h3>MA NURUL ULUM BATURSARI</h3>
+                <div class="header"><h3>KARTU PPDB MA NURUL ULUM</h3></div>
+                <div style="display: flex; gap: 15px;">
+                    <img src="${data.foto || 'https://via.placeholder.com/150'}" class="photo">
+                    <div>
+                        <p><b>No Reg:</b> ${data.reg}</p>
+                        <p><b>Nama:</b> ${data.nama}</p>
+                        <p><b>NISN:</b> ${data.nisn}</p>
+                    </div>
                 </div>
-                <table>
-                    <tr>
-                        <td width="160"><img src="${data.foto || 'https://via.placeholder.com/150'}" class="photo"></td>
-                        <td valign="top" style="padding-left:20px;">
-                            <p><b>No Reg:</b> ${data.reg || '-'}</p>
-                            <p><b>Nama:</b> ${data.nama}</p>
-                            <p><b>NISN:</b> ${data.nisn}</p>
-                            <p><b>Asal:</b> ${data.asal_sekolah || '-'}</p>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </body>
         </html>
     `);
 }
-</html>
+
 
 
 
