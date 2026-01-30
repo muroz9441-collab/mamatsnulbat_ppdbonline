@@ -302,10 +302,17 @@
     </div>
 
     <script>
-        window.onload = function() {
-            document.getElementById('nav-logo').src = ASSETS.logo_sekolah;
-            document.getElementById('hero-img').src = ASSETS.hero_image;
-        };
+                  document.addEventListener('DOMContentLoaded', function() {
+    const navLogo = document.getElementById('nav-logo');
+    const heroImg = document.getElementById('hero-img');
+    
+    // Set logo jika ada
+    if (navLogo) navLogo.src = ASSETS.logo_sekolah;
+    
+    // Hero image sudah diisi di HTML, jadi tidak perlu diisi lagi lewat JS
+    // Ini untuk mencegah "Muter Terus" jika JS macet
+    console.log("Aplikasi PPDB Siap");
+});
 
         function showSection(name) {
             const sections = ['beranda', 'pendaftaran', 'cek-status', 'admin-login', 'admin-dashboard'];
@@ -488,6 +495,7 @@
     </script>
 </body>
 </html>
+
 
 
 
