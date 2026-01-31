@@ -236,7 +236,7 @@
                             <button onClick={() => setView('home')} className="font-bold hover:text-yellow-300 text-sm uppercase">Beranda</button>
                             {currentUser ? (
                                 <button onClick={() => setView('dashboard')} className="flex items-center gap-2 bg-emerald-900 px-4 py-2 rounded-xl font-bold text-xs border border-white/10 uppercase italic text-white">
-                                    <i data-lucide="layout" className="w-4 h-4"></i> Dashboard
+                                    <i data-lucide="layout" className="w-4 h-4 text-white"></i> Dashboard
                                 </button>
                             ) : (
                                 <div className="flex items-center gap-4">
@@ -244,6 +244,10 @@
                                     <button onClick={() => setView('register')} className="bg-yellow-400 text-emerald-950 px-6 py-2.5 rounded-full font-black text-xs uppercase hover:bg-yellow-300 shadow-md">Daftar</button>
                                 </div>
                             )}
+                            {/* TOMBOL GEMBOK ADMIN DI SINI */}
+                            <button onClick={() => setView(isAdmin ? 'admin-dashboard' : 'admin-login')} className="p-2 opacity-40 hover:opacity-100 transition">
+                                <i data-lucide={isAdmin ? "shield-check" : "lock"} className={`w-5 h-5 ${isAdmin ? 'text-yellow-400' : 'text-white'}`}></i>
+                            </button>
                         </div>
                     </div>
                 </nav>
@@ -256,7 +260,7 @@
                     <Navbar />
                     <main className={`flex-1 ${showPrintMode || adminPrintMode ? 'hidden' : ''}`}>
                         {view === 'home' && (
-                            <div className="animate-fade-in">
+                            <div className="animate-fade-in text-left">
                                 <div className="header-gradient text-white py-24 px-4 relative overflow-hidden">
                                     <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10 text-left">
                                         <div className="md:w-3/5 text-left text-white">
@@ -294,9 +298,9 @@
                     {adminPrintMode && <div className="fixed inset-0 z-[100] bg-white overflow-y-auto"><PrintRekap data={filteredUsers} onBack={() => setAdminPrintMode(false)} filter={adminFilter} /></div>}
 
                     {notification && (
-                        <div className="fixed bottom-10 right-10 z-[200] animate-fade-in no-print">
+                        <div className="fixed bottom-10 right-10 z-[200] animate-fade-in no-print text-left">
                             <div className={`px-10 py-5 rounded-[2rem] shadow-2xl flex items-center gap-4 font-black text-white ${notification.type === 'success' ? 'bg-emerald-700' : 'bg-red-600'}`}>
-                                <i data-lucide={notification.type === 'success' ? "check-circle" : "x-circle"}></i>
+                                <i data-lucide={notification.type === 'success' ? "check-circle" : "x-circle"} className="text-white"></i>
                                 <span className="text-lg uppercase">{notification.msg}</span>
                             </div>
                         </div>
@@ -322,13 +326,13 @@
             return (
                 <div className="min-h-[80vh] flex items-center justify-center px-4 bg-slate-50 text-left">
                     <div className="max-w-md w-full bg-white rounded-[3.5rem] shadow-2xl p-12 border border-emerald-50 text-center">
-                        <div className="bg-emerald-700 w-24 h-24 rounded-3xl flex items-center justify-center text-white mx-auto mb-10 shadow-lg"><i data-lucide="user" className="w-10 h-10 text-white"></i></div>
+                        <div className="bg-emerald-700 w-24 h-24 rounded-3xl flex items-center justify-center text-white mx-auto mb-10 shadow-lg text-center"><i data-lucide="user" className="w-10 h-10 text-white"></i></div>
                         <h2 className="text-3xl font-black text-emerald-900 mb-10 uppercase italic tracking-tighter">LOGIN SISWA</h2>
                         <form onSubmit={(e) => { e.preventDefault(); onLogin(e.target.phone.value, e.target.password.value); }} className="space-y-6">
-                            <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">WhatsApp</label><input name="phone" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500" placeholder="08xxxxxxxxxx" type="tel" /></div>
-                            <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Password</label><input name="password" type="password" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500" placeholder="••••••••" /></div>
-                            <button type="submit" className="w-full bg-emerald-700 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-800 shadow-xl uppercase">MASUK SEKARANG</button>
-                            <button type="button" onClick={() => setView('register')} className="w-full text-xs font-black text-emerald-700 mt-6 hover:underline uppercase">Daftar Akun Baru</button>
+                            <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">WhatsApp</label><input name="phone" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="08xxxxxxxxxx" type="tel" /></div>
+                            <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Password</label><input name="password" type="password" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="••••••••" /></div>
+                            <button type="submit" className="w-full bg-emerald-700 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-800 shadow-xl uppercase text-white">MASUK SEKARANG</button>
+                            <button type="button" onClick={() => setView('register')} className="w-full text-xs font-black text-emerald-700 mt-6 hover:underline uppercase text-emerald-700">Daftar Akun Baru</button>
                         </form>
                     </div>
                 </div>
@@ -358,15 +362,15 @@
                 <div className="max-w-4xl mx-auto px-4 py-16 text-left">
                     <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-emerald-50 text-left">
                         <div className="header-gradient p-12 text-white text-center">
-                            <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8">FORMULIR PENDAFTARAN</h2>
+                            <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8 text-white">FORMULIR PENDAFTARAN</h2>
                             <div className="flex justify-center gap-4">{[1, 2, 3].map(i => <div key={i} className={`h-2 rounded-full transition-all duration-700 ${step >= i ? 'bg-yellow-400 w-24' : 'bg-emerald-900 w-12'}`}></div>)}</div>
                         </div>
-                        <form onSubmit={(e) => onSubmit(e, step, setStep, data, rawFiles)} className="p-12 space-y-8">
+                        <form onSubmit={(e) => onSubmit(e, step, setStep, data, rawFiles)} className="p-12 space-y-8 text-left">
                             {step === 1 && (
                                 <div className="space-y-8 animate-fade-in text-left">
                                     <div className="flex flex-col items-center mb-10 text-center">
                                         <div onClick={() => inputRef.current.click()} className="w-32 h-44 border-4 border-dashed border-emerald-100 rounded-[2.5rem] flex flex-col items-center justify-center cursor-pointer hover:border-emerald-500 overflow-hidden bg-slate-50">
-                                            {previewPhoto ? <img src={previewPhoto} className="w-full h-full object-cover" /> : <div className="text-emerald-200 text-center"><i data-lucide="camera" className="mx-auto mb-2"></i><span className="text-[9px] font-black uppercase">FOTO 3x4</span></div>}
+                                            {previewPhoto ? <img src={previewPhoto} className="w-full h-full object-cover" /> : <div className="text-emerald-200 text-center"><i data-lucide="camera" className="mx-auto mb-2 text-emerald-300"></i><span className="text-[9px] font-black uppercase text-emerald-300">FOTO 3x4</span></div>}
                                             <input type="file" ref={inputRef} className="hidden" accept="image/*" onChange={handlePhotoSelection} />
                                         </div>
                                         <p className="text-[10px] font-black text-emerald-600 mt-4 italic uppercase">Upload Foto Santri (Wajib)</p>
@@ -381,7 +385,7 @@
                                         <div className="space-y-1"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">NIK (16 Digit)</label><input required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" maxLength={16} value={data.nik} onChange={e => setData({...data, nik: e.target.value})} /></div>
                                     </div>
                                     <div className="space-y-1"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">NISN (10 Digit)</label><input required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" maxLength={10} value={data.nisn} onChange={e => setData({...data, nisn: e.target.value})} /></div>
-                                    <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black ml-auto block uppercase text-xs tracking-widest shadow-xl">LANJUT TAHAP 2</button>
+                                    <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black ml-auto block uppercase text-xs tracking-widest shadow-xl text-white">LANJUT TAHAP 2</button>
                                 </div>
                             )}
                             {step === 2 && (
@@ -394,7 +398,7 @@
                                     <div className="space-y-1"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Alamat Lengkap</label><textarea required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" rows="3" value={data.address} onChange={e => setData({...data, address: e.target.value})}></textarea></div>
                                     <div className="flex justify-between items-center pt-6">
                                         <button type="button" onClick={() => setStep(1)} className="text-slate-400 font-black uppercase text-xs">Kembali</button>
-                                        <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl">LANJUT TAHAP 3</button>
+                                        <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl text-white">LANJUT TAHAP 3</button>
                                     </div>
                                 </div>
                             )}
@@ -408,7 +412,7 @@
                                     <div className="space-y-1"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Buat Password Login</label><input required type="password" className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" placeholder="Minimal 6 karakter" value={data.password} onChange={e => setData({...data, password: e.target.value})} /></div>
                                     <div className="flex justify-between items-center pt-8 border-t">
                                         <button type="button" onClick={() => setStep(2)} className="text-slate-400 font-black uppercase text-xs" disabled={isSaving}>Kembali</button>
-                                        <button type="submit" className={`bg-yellow-400 text-emerald-950 px-16 py-6 rounded-3xl font-black text-2xl shadow-2xl transition transform hover:scale-105 ${isSaving ? 'opacity-50' : ''}`} disabled={isSaving}>
+                                        <button type="submit" className={`bg-yellow-400 text-emerald-950 px-16 py-6 rounded-3xl font-black text-2xl shadow-2xl transition transform hover:scale-105 text-emerald-950 ${isSaving ? 'opacity-50' : ''}`} disabled={isSaving}>
                                             {isSaving ? "MENYIMPAN..." : "SIMPAN PENDAFTARAN"}
                                         </button>
                                     </div>
@@ -484,15 +488,15 @@
             return (
                 <div className="max-w-full mx-auto px-8 py-16 space-y-12 animate-fade-in text-slate-800 text-left">
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-10">
-                        <div className="text-left"><h2 className="text-5xl font-black text-emerald-950 uppercase tracking-tighter italic underline decoration-emerald-300 underline-offset-8">DATA PENDAFTAR</h2><p className="text-slate-400 text-xs font-black tracking-widest mt-6 uppercase italic">Sinkronisasi Real-time: Aktif</p></div>
+                        <div className="text-left text-slate-800"><h2 className="text-5xl font-black text-emerald-950 uppercase tracking-tighter italic underline decoration-emerald-300 underline-offset-8">DATA PENDAFTAR</h2><p className="text-slate-400 text-xs font-black tracking-widest mt-6 uppercase italic">Sinkronisasi Real-time: Aktif</p></div>
                         <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-                            <div className="flex items-center bg-white p-2 rounded-2xl shadow-md border border-slate-100">
+                            <div className="flex items-center bg-white p-2 rounded-2xl shadow-md border border-slate-100 text-left">
                                 <span className="text-[10px] font-black px-4 uppercase text-slate-400">Filter:</span>
                                 {['Semua', 'MA', 'MTs'].map(lvl => (
                                     <button key={lvl} onClick={() => setFilter(lvl)} className={`px-6 py-2 rounded-xl text-xs font-black transition ${filter === lvl ? 'bg-emerald-700 text-white shadow-lg' : 'text-slate-400 hover:text-emerald-700'}`}>{lvl}</button>
                                 ))}
                             </div>
-                            <button onClick={onPrint} className="bg-emerald-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-4 shadow-xl hover:bg-black transition">CETAK REKAP {filter.toUpperCase()}</button>
+                            <button onClick={onPrint} className="bg-emerald-900 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-4 shadow-xl hover:bg-black transition text-white">CETAK REKAP {filter.toUpperCase()}</button>
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-8 text-center font-black italic">
@@ -502,7 +506,7 @@
                     </div>
                     <div className="bg-white rounded-[3.5rem] shadow-2xl border border-slate-100 overflow-hidden text-left">
                         <div className="overflow-x-auto custom-scrollbar">
-                            <table className="w-full text-left font-black italic">
+                            <table className="w-full text-left font-black italic text-slate-800">
                                 <thead className="bg-slate-50 border-b border-slate-100 text-[11px] font-black uppercase text-slate-400 tracking-widest text-left">
                                     <tr><th className="px-10 py-8 text-left">SANTRI</th><th className="px-10 py-8 text-left">NO REGISTRASI</th><th className="px-10 py-8 text-center">JENJANG</th><th className="px-10 py-8 text-left">STATUS</th><th className="px-10 py-8 text-right">AKSI</th></tr>
                                 </thead>
@@ -529,11 +533,11 @@
         function AdminLogin({ onLogin, setView }) {
             return (
                 <div className="min-h-[80vh] flex items-center justify-center px-4 bg-emerald-950 text-left">
-                    <div className="max-w-md w-full bg-white rounded-[4rem] shadow-2xl p-12 text-center animate-fade-in text-slate-800">
+                    <div className="max-w-md w-full bg-white rounded-[4rem] shadow-2xl p-12 text-center animate-fade-in text-slate-800 text-left">
                         <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter italic text-emerald-900">AKSES PANITIA</h2>
                         <form onSubmit={(e) => { e.preventDefault(); onLogin(e.target.pwd.value); }} className="space-y-6">
                             <input name="pwd" type="password" className="w-full p-6 rounded-3xl bg-slate-100 border-none outline-none text-center text-4xl font-black tracking-[0.5em] text-slate-800" placeholder="••••" autoFocus />
-                            <button type="submit" className="w-full bg-emerald-900 text-white py-5 rounded-3xl font-black text-xl hover:bg-black transition shadow-xl uppercase">MASUK PANEL</button>
+                            <button type="submit" className="w-full bg-emerald-900 text-white py-5 rounded-3xl font-black text-xl hover:bg-black transition shadow-xl uppercase text-white">MASUK PANEL</button>
                             <button type="button" onClick={() => setView('home')} className="text-slate-400 font-bold uppercase text-xs tracking-widest mt-4 text-center w-full">Kembali</button>
                         </form>
                     </div>
@@ -544,12 +548,12 @@
         function AdminModal({ applicant, note, setNote, regNum, setRegNum, onUpdate, onClose }) {
             return (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-emerald-950/80 backdrop-blur-sm no-print animate-fade-in text-left">
-                    <div className="bg-white w-full max-w-xl rounded-[4rem] shadow-2xl overflow-hidden text-slate-800">
-                        <div className="header-gradient p-10 text-white flex justify-between items-center">
-                            <div className="text-left text-white"><h3 className="text-3xl font-black uppercase tracking-tighter italic">{applicant.name}</h3><p className="text-emerald-300 text-[10px] font-black uppercase mt-2">Update Verifikasi Peserta</p></div>
+                    <div className="bg-white w-full max-w-xl rounded-[4rem] shadow-2xl overflow-hidden text-slate-800 text-left">
+                        <div className="header-gradient p-10 text-white flex justify-between items-center text-left">
+                            <div className="text-left text-white"><h3 className="text-3xl font-black uppercase tracking-tighter italic text-white">{applicant.name}</h3><p className="text-emerald-300 text-[10px] font-black uppercase mt-2">Update Verifikasi Peserta</p></div>
                             <button onClick={onClose} className="p-3 bg-white/10 rounded-2xl hover:bg-emerald-900 text-white font-black text-white">X</button>
                         </div>
-                        <div className="p-10 space-y-8 font-bold text-slate-800 text-left">
+                        <div className="p-10 space-y-8 font-bold text-slate-800 text-left text-slate-800">
                             <div className="space-y-2 text-left"><label className="text-[10px] font-black text-slate-400 uppercase ml-1">Edit No. Registrasi Resmi</label><input className="w-full p-5 rounded-2xl bg-slate-50 border-none outline-none font-black text-emerald-700 uppercase" value={regNum} onChange={e => setRegNum(e.target.value)} placeholder="001/MA/24" /></div>
                             <div className="space-y-2 text-left"><label className="text-[10px] font-black text-slate-400 uppercase ml-1">Pesan Panitia</label><textarea className="w-full p-6 rounded-2xl bg-slate-50 border-none outline-none font-bold text-base focus:ring-2 focus:ring-emerald-500 text-slate-800" rows="3" placeholder="Tulis instruksi revisi..." value={note} onChange={e => setNote(e.target.value)}></textarea></div>
                             <div className="grid grid-cols-3 gap-4 text-white text-xs font-black italic uppercase">
@@ -585,7 +589,7 @@
                             </div>
                         </div>
 
-                        <h3 className="text-center text-4xl font-black uppercase underline decoration-4 underline-offset-[12px] mb-12 italic">Kartu Bukti Pendaftaran</h3>
+                        <h3 className="text-center text-4xl font-black uppercase underline decoration-4 underline-offset-[12px] mb-12 italic text-center text-slate-800">Kartu Bukti Pendaftaran</h3>
 
                         <div className="flex flex-col items-center gap-10">
                             {/* PAS FOTO DI ATAS NAMA */}
@@ -594,7 +598,7 @@
                             </div>
 
                             <div className="w-full text-left">
-                                <table className="w-full text-xl print-table border-separate border-spacing-y-2 text-left font-bold italic">
+                                <table className="w-full text-xl print-table border-separate border-spacing-y-2 text-left font-bold italic text-slate-900">
                                     <tbody>
                                         <tr><td className="w-56 text-black uppercase text-xs font-black">No Registrasi</td><td className="w-4 text-center">:</td><td className="text-emerald-700 font-black text-2xl">#{data.regNumber || "DALAM PROSES"}</td></tr>
                                         <tr><td className="text-black uppercase text-xs font-black">Nama Lengkap</td><td className="text-center">:</td><td>{data.name}</td></tr>
@@ -616,11 +620,11 @@
 
                         <div className="grid grid-cols-2 gap-32 text-center text-sm font-black mt-20 uppercase italic">
                             <div className="space-y-24">
-                                <p>Mengetahui, Panitia</p>
+                                <p className="text-center">Mengetahui, Panitia</p>
                                 <div className="border-t-2 border-slate-900 pt-3 mx-12 text-center">( ................................ )</div>
                             </div>
                             <div className="space-y-24">
-                                <p>Calon Santri Baru,</p>
+                                <p className="text-center">Calon Santri Baru,</p>
                                 <div className="border-t-2 border-slate-900 pt-3 mx-12 text-center">( {data.name} )</div>
                             </div>
                         </div>
@@ -631,17 +635,17 @@
 
         function PrintRekap({ data, onBack, filter }) {
             return (
-                <div className="w-full max-w-[297mm] mx-auto bg-white p-12 text-left text-slate-900 font-bold italic border-2 border-black print-landscape">
+                <div className="w-full max-w-[297mm] mx-auto bg-white p-12 text-left text-slate-900 font-bold italic border-2 border-black print-landscape text-slate-900">
                     <div className="no-print mb-12 flex gap-4 text-left">
                         <button onClick={onBack} className="bg-red-600 text-white px-8 py-3 rounded-xl uppercase text-xs font-black">TUTUP</button>
                         <button onClick={() => window.print()} className="bg-emerald-900 text-white px-8 py-3 rounded-xl uppercase shadow-xl text-xs font-black">CETAK LAPORAN</button>
                     </div>
-                    <div className="text-center border-b-8 border-double border-slate-900 pb-10 mb-14 italic">
+                    <div className="text-center border-b-8 border-double border-slate-900 pb-10 mb-14 italic text-center">
                         <h1 className="text-3xl font-black uppercase text-center">LAPORAN REKAPITULASI PENDAFTARAN SANTRI BARU</h1>
                         <h2 className="text-2xl text-emerald-800 mt-2 font-black text-center uppercase">MA - MTs Nurul Ulum Batursari Mranggen</h2>
                         <p className="text-[11px] mt-6 font-bold text-slate-500 text-center uppercase">TP 2024/2025 • Filter: {filter} • Dicetak: {new Date().toLocaleString('id-ID')}</p>
                     </div>
-                    <table className="w-full border-collapse border-2 border-black text-[7pt] font-bold italic text-left">
+                    <table className="w-full border-collapse border-2 border-black text-[7pt] font-bold italic text-left text-slate-900">
                         <thead>
                             <tr className="bg-slate-100 border-b-2 border-black uppercase text-black">
                                 <th className="border-r-2 border-black p-2 text-center w-8">NO</th>
