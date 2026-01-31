@@ -455,8 +455,11 @@
                                         <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Pilih Jenjang</label><select className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.level} onChange={e => setData({...data, level: e.target.value})}><option value="MA">MA (Madrasah Aliyah)</option><option value="MTs">MTs (Madrasah Tsanawiyah)</option></select></div>
                                         <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Nama Orang Tua/Wali</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.parentName} onChange={e => setData({...data, parentName: e.target.value})} /></div>
                                     </div>
-                                    <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Asal Sekolah</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" placeholder="Sekolah Sebelumnya" value={data.school} onChange={e => setData({...data, school: e.target.value})} /></div>
-                                    <div className="flex justify-between items-center text-left">
+                                        <div className="flex justify-between items-center text-left">
+                                        <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Alamat</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" placeholder="Alamat " value={data.address} onChange={e => setData({...data, address: e.target.value})} /></div>
+                                        <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Asal Sekolah</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" placeholder="Sekolah Sebelumnya" value={data.school} onChange={e => setData({...data, school: e.target.value})} /></div>
+                                    </div>
+                                        <div className="flex justify-between items-center text-left">
                                         <button type="button" onClick={() => setStep(1)} className="text-gray-400 font-black uppercase text-[10px] tracking-widest text-gray-400">Kembali</button>
                                         <button type="submit" className="bg-emerald-600 text-white px-12 py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl text-white">Lanjutkan</button>
                                     </div>
@@ -688,6 +691,7 @@
     </script>
 </body>
 </html>
+
 
 
 
