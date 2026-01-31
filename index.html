@@ -587,7 +587,7 @@
             );
         }
 
-     function PrintCard({ data, onBack, logo }) {
+function PrintCard({ data, onBack, logo }) {
             return (
                 <div className="w-full max-w-[210mm] mx-auto bg-white p-12 text-left text-slate-800 font-black italic uppercase">
                     {/* Tombol Navigasi (Hanya muncul di layar, tidak saat di-print) */}
@@ -622,8 +622,10 @@
                                     <span className="text-[10px] font-black uppercase text-slate-300 text-center uppercase">Pas Foto 3x4</span>
                                 )}
                             </div>
-                            <table className="w-full text-sm font-black border-separate border-spacing-y-4 text-left text-gray-800 font-black">
-                                <tbody className="text-left text-gray-800 font-black">
+
+                            {/* Data Santri */}
+                            <table className="w-full text-lg border-separate border-spacing-y-6 text-left font-black italic">
+                                <tbody className="text-left">
                                     <tr className="text-left"><td className="w-48 opacity-40 uppercase text-[10px] text-left text-gray-400">ID Peserta Didik</td><td className="w-4 text-center">:</td><td className="text-emerald-700 font-black text-lg text-left text-emerald-700">#{data.id.substring(0,8).toUpperCase()}</td></tr>
                                     <tr className="text-left"><td className="opacity-40 uppercase text-[10px] text-left text-gray-400">Nama Lengkap</td><td className="text-center">:</td><td className="uppercase text-left text-gray-800">{data.name}</td></tr>
                                     <tr className="text-left"><td className="opacity-40 uppercase text-[10px] text-left text-gray-400">Jenis Kelamin</td><td className="text-center">:</td><td className="uppercase text-left text-gray-800">{data.gender}</td></tr>
@@ -639,10 +641,21 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div className="bg-gray-50 p-6 rounded-2xl border-2 border-dashed border-gray-300 text-[11px] font-bold italic mt-10 mb-14 text-center uppercase text-gray-800">Tunjukkan bukti ini saat verifikasi berkas asli di kantor madrasah.</div>
-                        <div className="grid grid-cols-2 gap-32 text-center text-[12px] font-black mt-16 text-center text-gray-800 uppercase">
-                            <div className="space-y-24 text-center"><p className="text-center uppercase">Mengetahui, Panitia</p><p className="border-t-2 border-black pt-2 mx-12 text-center text-gray-800">( ................................ )</p></div>
-                            <div className="space-y-24 text-center"><p className="text-center uppercase">Calon Peserta Didik Baru,</p><p className="border-t-2 border-black pt-2 mx-12 uppercase text-center text-gray-800">( {data.name} )</p></div>
+
+                        <div className="bg-slate-50 p-8 rounded-3xl border-2 border-dashed border-slate-200 text-[11px] font-bold italic text-center uppercase tracking-tight leading-relaxed text-slate-500">
+                            Kartu ini adalah bukti sah pendaftaran online. Harap dibawa saat melakukan verifikasi berkas fisik di Madrasah.
+                        </div>
+
+                        {/* Tanda Tangan */}
+                        <div className="grid grid-cols-2 gap-32 text-center text-sm font-black mt-20 uppercase italic">
+                            <div className="space-y-28 text-center">
+                                <p className="text-center">Mengetahui, Panitia</p>
+                                <div className="border-t-2 border-slate-800 pt-3 mx-12 text-center">( ................................ )</div>
+                            </div>
+                            <div className="space-y-28 text-center">
+                                <p className="text-center">Calon Peserta Didik Baru,</p>
+                                <div className="border-t-2 border-slate-800 pt-3 mx-12 uppercase text-center">( {data.name} )</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -711,6 +724,7 @@
     </script>
 </body>
 </html>
+
 
 
 
