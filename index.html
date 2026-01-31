@@ -434,11 +434,11 @@
                                         </div>
                                         <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mt-3 italic text-center">Klik kotak di atas untuk upload foto</p>
                                     </div>
-
-                                    <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 block">Nama Lengkap Siswa</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none focus:ring-4 focus:ring-emerald-500/10 text-gray-800" placeholder="Sesuai Ijazah" value={data.name} onChange={e => setData({...data, name: e.target.value})} /></div>
-                                    <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Jenis Kelamin</label><select className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.gender} onChange={e => setData({...data, gender: e.target.value})}><option value="Laki-Laki">Laki-Laki</option><option value="Perempuan">Perempuan</option></select></div>
-                                   </div>
-                                    <div className="grid grid-cols-2 gap-6 text-left">
+                                        <div className="grid grid-cols-2 gap-6 text-left">
+                                        <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 block">Nama Lengkap Siswa</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none focus:ring-4 focus:ring-emerald-500/10 text-gray-800" placeholder="Sesuai Ijazah" value={data.name} onChange={e => setData({...data, name: e.target.value})} /></div>
+                                        <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Jenis Kelamin</label><select className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.gender} onChange={e => setData({...data, gender: e.target.value})}><option value="Laki-Laki">Laki-Laki</option><option value="Perempuan">Perempuan</option></select></div>
+                                    </div>
+                                        <div className="grid grid-cols-2 gap-6 text-left">
                                         <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Tempat Lahir</label><input required className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.birthPlace} onChange={e => setData({...data, birthPlace: e.target.value})} /></div>
                                         <div className="space-y-1 block text-left text-gray-400"><label className="text-[10px] font-black uppercase tracking-widest ml-1 text-left">Tanggal Lahir</label><input required type="date" className="w-full p-5 bg-gray-50 rounded-2xl font-bold border-none outline-none text-gray-800" value={data.birthDate} onChange={e => setData({...data, birthDate: e.target.value})} /></div>
                                     </div>
@@ -688,6 +688,7 @@
     </script>
 </body>
 </html>
+
 
 
 
