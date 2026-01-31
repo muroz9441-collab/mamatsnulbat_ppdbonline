@@ -592,7 +592,7 @@
                     <div className="p-10 border-4 border-black border-double rounded-3xl print:border-none print:shadow-none text-left">
                         <div className="flex items-center gap-6 border-b-4 border-black pb-6 mb-10 text-left">
                             {/* GANTI: Ikon logo di sini bisa diganti dengan <img src="logo.jpg" style={{width: '70px'}} /> */}
-                            <i data-lucide="school" className="w-16 h-16 text-emerald-800 text-left"></i>
+                            <img src="logo.jpg" className="w-full h-full object-contain" />
                             <div className="flex-1 text-center">
                                 <h1 className="text-2xl font-black uppercase leading-tight text-center">Panitia Penerimaan Peserta Didik Baru</h1>
                                 <h2 className="text-3xl font-black uppercase text-emerald-800 leading-tight text-center">MA - MTs Nurul Ulum Batursari</h2>
@@ -627,37 +627,46 @@
                 </div>
             );
         }
-
+// --- GANTI SELURUH FUNGSI INI DI BAGIAN BAWAH KODE KAKAK ---
         function PrintRekap({ data, onBack }) {
             return (
-                <div className="w-full max-w-[297mm] mx-auto bg-white p-10 text-left text-gray-800">
-                    <div className="no-print mb-8 flex gap-4 text-left">
-                        <button onClick={onBack} className="bg-red-600 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase text-white text-center">Tutup</button>
-                        <button onClick={() => window.print()} className="bg-emerald-700 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase shadow-xl flex items-center gap-3 text-center text-white"><i data-lucide="printer"></i> Cetak Laporan</button>
+                <div className="w-full max-w-[297mm] mx-auto bg-white p-12 text-left text-slate-800 uppercase font-black italic border-2 border-black">
+                    {/* Tombol Navigasi (Hanya muncul di layar, tidak saat di-print) */}
+                    <div className="no-print mb-12 flex gap-4 text-left text-white font-black italic uppercase">
+                        <button onClick={onBack} className="bg-red-600 text-white px-8 py-3 rounded-xl uppercase text-white">TUTUP</button>
+                        <button onClick={() => window.print()} className="bg-emerald-900 text-white px-8 py-3 rounded-xl uppercase shadow-xl text-white">CETAK LAPORAN</button>
                     </div>
-                    <div className="text-center border-b-8 border-double border-black pb-8 mb-10 text-center text-gray-800 uppercase">
-                        <h1 className="text-3xl font-black uppercase text-center text-gray-800 font-black">Rekapitulasi Peserta Didik Baru</h1>
-                        <h2 className="text-xl font-bold text-emerald-800 uppercase mt-2 text-center text-emerald-800 font-bold">MA - MTs Nurul Ulum Batursari Mranggen</h2>
-                        <p className="text-[10px] mt-4 font-bold text-gray-400 text-center uppercase text-gray-400">Tahun Pelajaran 2026/2027</p>
+
+                    {/* Header Laporan */}
+                    <div className="text-center border-b-8 border-double border-slate-800 pb-10 mb-14 uppercase font-black italic text-center">
+                        <h1 className="text-3xl font-black">REKAPITULASI PENDAFTARAN PESERTA DIDIK BARU</h1>
+                        <h2 className="text-xl text-emerald-800 mt-2 font-black">MA - MTs Nurul Ulum Mranggen</h2>
+                        <p className="text-[10px] mt-6 font-bold text-slate-400 text-center uppercase font-black italic">TP 2024/2025 • Dicetak: {new Date().toLocaleString('id-ID')}</p>
                     </div>
-                    <table className="w-full border-collapse border-2 border-black text-[9pt] font-black text-left uppercase text-gray-800 border-2">
-                        <thead className="text-left text-gray-800 uppercase font-black">
-                            <tr className="bg-gray-100 text-black text-left font-black">
-                                <th className="border-2 border-black p-3 text-center">No</th>
-                                <th className="border-2 border-black p-3 text-left">Nama Santri</th>
-                                <th className="border-2 border-black p-3 text-left">Jenjang</th>
-                                <th className="border-2 border-black p-3 text-center">WhatsApp</th>
-                                <th className="border-2 border-black p-3 text-center">Status</th>
+
+                    {/* Tabel Data Lengkap */}
+                    <table className="w-full border-collapse border-2 border-slate-800 text-[8pt] font-black uppercase text-left text-slate-800 font-black italic">
+                        <thead>
+                            <tr className="bg-slate-100 border-b-2 border-slate-800 text-left font-black uppercase">
+                                <th className="border-r-2 border-slate-800 p-2 text-center w-10">NO</th>
+                                <th className="border-r-2 border-slate-800 p-2 text-left">NAMA LENGKAP</th>
+                                <th className="border-r-2 border-slate-800 p-2 text-left">NIK / NISN</th>
+                                <th className="border-r-2 border-slate-800 p-2 text-center w-10">JN</th>
+                                <th className="border-r-2 border-slate-800 p-2 text-left">SEKOLAH ASAL</th>
+                                <th className="border-r-2 border-slate-800 p-2 text-left">ORTU / WALI</th>
+                                <th className="p-2 text-center">STATUS</th>
                             </tr>
                         </thead>
-                        <tbody className="text-left text-gray-800 uppercase">
+                        <tbody>
                             {data.map((u, i) => (
-                                <tr key={u.id} className="text-left text-gray-800 border-2 border-black">
-                                    <td className="border-2 border-black p-2 text-center text-left">{i+1}</td>
-                                    <td className="border-2 border-black p-2 text-left font-black">{u.name}</td>
-                                    <td className="border-2 border-black p-2 text-center text-emerald-700 font-black">{u.level}</td>
-                                    <td className="border-2 border-black p-2 text-center">{u.phone}</td>
-                                    <td className="border-2 border-black p-2 text-center font-bold">{u.status || 'PENDING'}</td>
+                                <tr key={u.id} className="border-b border-slate-800 text-left font-black uppercase">
+                                    <td className="border-r-2 border-slate-800 p-2 text-center">{i+1}</td>
+                                    <td className="border-r-2 border-slate-800 p-2 font-black">{u.name}</td>
+                                    <td className="border-r-2 border-slate-800 p-2">{u.nik}<br/>{u.nisn}</td>
+                                    <td className="border-r-2 border-slate-800 p-2 text-center text-emerald-800">{u.level}</td>
+                                    <td className="border-r-2 border-slate-800 p-2">{u.school}</td>
+                                    <td className="border-r-2 border-slate-800 p-2">{u.parentName}</td>
+                                    <td className="p-2 text-center font-bold">{u.status || 'PENDING'}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -677,6 +686,7 @@
     </script>
 </body>
 </html>
+
 
 
 
