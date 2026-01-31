@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PPDB MA-MTs Nurul Ulum - Mranggen</title>
+    <title>PPDB MA-MTs Nurul Ulum - Batursari</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -70,7 +70,7 @@
         }
         const auth = firebase.auth();
         const db = firebase.firestore();
-        const appId = "ppdb-nurul-ulum-v1";
+        const appId = "ppdb-ma-mts-nurul-ulum-v1";
 
         function App() {
             const [view, setView] = useState('home'); 
@@ -193,7 +193,7 @@
                                 <i data-lucide="school" className="w-7 h-7"></i>
                             </div>
                             <div className="text-left">
-                                <span className="font-black text-xl block leading-none uppercase tracking-tighter">Nurul Ulum</span>
+                                <span className="font-black text-xl block leading-none uppercase tracking-tighter">MA-MTs Nurul Ulum Batursari</span>
                                 <span className="text-[10px] font-bold text-emerald-300 uppercase tracking-widest block">Mranggen • Demak</span>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
                                     <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between z-10 relative text-left">
                                         <div className="md:w-1/2 mb-12">
                                             <h1 className="text-5xl md:text-8xl font-black leading-none mb-6 tracking-tighter uppercase italic text-shadow-premium">PPDB Online <br/><span className="text-yellow-400">Nurul Ulum</span></h1>
-                                            <p className="text-xl opacity-80 mb-10 max-w-lg font-medium leading-relaxed">Selamat Datang di Portal Penerimaan Santri Baru MA & MTs Nurul Ulum Batursari Mranggen TP 2024/2025.</p>
+                                            <p className="text-xl opacity-80 mb-10 max-w-lg font-medium leading-relaxed">Selamat Datang di Portal Penerimaan Peserta Didik Baru MA & MTs Nurul Ulum Batursari Mranggen TP 2024/2025.</p>
                                             <div className="flex flex-col sm:flex-row gap-4">
                                                 <button onClick={() => setView('register')} className="bg-yellow-400 text-emerald-950 px-12 py-5 rounded-[2.5rem] font-black text-xl hover:bg-yellow-300 shadow-2xl transition transform hover:-translate-y-1 uppercase tracking-tighter">Mulai Daftar</button>
                                                 <button onClick={() => setView('login')} className="bg-white/10 backdrop-blur-md border border-white/20 px-10 py-5 rounded-[2.5rem] font-bold text-lg hover:bg-white/20 transition uppercase">Login Siswa</button>
@@ -291,7 +291,7 @@
                                     <div id="lokasi" className="bg-white p-10 rounded-[3.5rem] shadow-xl border border-emerald-50">
                                         <div className="bg-emerald-50 p-5 rounded-[2rem] text-emerald-600 mb-6 inline-block"><i data-lucide="map-pin" className="w-8 h-8"></i></div>
                                         <h3 className="text-xl font-black uppercase tracking-tighter mb-4 text-gray-800">Alamat Madrasah</h3>
-                                        <p className="text-sm font-bold text-gray-500 leading-relaxed italic">Jl. Raya Batursari Mranggen, Demak, Jawa Tengah.</p>
+                                        <p className="text-sm font-bold text-gray-500 leading-relaxed italic">Jl. Mondosari No. 01 RT. 01 RW. 05, Batursari Mranggen, Demak, Jawa Tengah.</p>
                                     </div>
                                     <div id="kontak" className="bg-white p-10 rounded-[3.5rem] shadow-xl border border-emerald-50">
                                         <div className="bg-emerald-50 p-5 rounded-[2rem] text-emerald-600 mb-6 inline-block"><i data-lucide="phone" className="w-8 h-8"></i></div>
@@ -591,10 +591,10 @@
                     </div>
                     <div className="p-10 border-4 border-black border-double rounded-3xl print:border-none print:shadow-none text-left">
                         <div className="flex items-center gap-6 border-b-4 border-black pb-6 mb-10 text-left">
-                            {/* GANTI: Ikon logo di sini bisa diganti dengan <img src="logo.png" style={{width: '70px'}} /> */}
+                            {/* GANTI: Ikon logo di sini bisa diganti dengan <img src="logo.jpg" style={{width: '70px'}} /> */}
                             <i data-lucide="school" className="w-16 h-16 text-emerald-800 text-left"></i>
                             <div className="flex-1 text-center">
-                                <h1 className="text-2xl font-black uppercase leading-tight text-center">Yayasan Pendidikan Islam Nurul Ulum</h1>
+                                <h1 className="text-2xl font-black uppercase leading-tight text-center">Panitia Penerimaan Peserta Didik Baru</h1>
                                 <h2 className="text-3xl font-black uppercase text-emerald-800 leading-tight text-center">MA - MTs Nurul Ulum Batursari</h2>
                                 <p className="text-xs font-bold text-gray-500 uppercase mt-1 italic text-center text-gray-500 uppercase">Mranggen, Demak, Jawa Tengah 59567</p>
                             </div>
@@ -636,9 +636,9 @@
                         <button onClick={() => window.print()} className="bg-emerald-700 text-white px-10 py-4 rounded-2xl font-black text-xs uppercase shadow-xl flex items-center gap-3 text-center text-white"><i data-lucide="printer"></i> Cetak Laporan</button>
                     </div>
                     <div className="text-center border-b-8 border-double border-black pb-8 mb-10 text-center text-gray-800 uppercase">
-                        <h1 className="text-3xl font-black uppercase text-center text-gray-800 font-black">Rekapitulasi Santri Baru</h1>
+                        <h1 className="text-3xl font-black uppercase text-center text-gray-800 font-black">Rekapitulasi Peserta Didik Baru</h1>
                         <h2 className="text-xl font-bold text-emerald-800 uppercase mt-2 text-center text-emerald-800 font-bold">MA - MTs Nurul Ulum Batursari Mranggen</h2>
-                        <p className="text-[10px] mt-4 font-bold text-gray-400 text-center uppercase text-gray-400">Tahun Pelajaran 2024/2025</p>
+                        <p className="text-[10px] mt-4 font-bold text-gray-400 text-center uppercase text-gray-400">Tahun Pelajaran 2026/2027</p>
                     </div>
                     <table className="w-full border-collapse border-2 border-black text-[9pt] font-black text-left uppercase text-gray-800 border-2">
                         <thead className="text-left text-gray-800 uppercase font-black">
@@ -677,3 +677,4 @@
     </script>
 </body>
 </html>
+
