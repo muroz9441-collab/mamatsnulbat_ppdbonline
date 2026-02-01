@@ -228,6 +228,7 @@
                                 <img src="logo.jpg" className="w-full h-full object-contain" onError={(e) => e.target.src = "https://cdn-icons-png.flaticon.com/512/167/167707.png"} />
                             </div>
                             <div className="flex flex-col text-left">
+                                <span className="text-[8px] md:text-[9px] font-bold text-emerald-300 uppercase tracking-widest text-left">PANITIA PENERIMAAN PESERTA DIDIK BARU</span>
                                 <span className="font-extrabold text-sm md:text-lg leading-tight uppercase">MTS-MA NULBAT</span>
                                 <span className="text-[8px] md:text-[9px] font-bold text-emerald-300 uppercase tracking-widest text-left">BATURSARI  MRANGGEN</span>
                             </div>
@@ -264,7 +265,7 @@
                                 <div className="header-gradient text-white py-24 px-4 relative overflow-hidden">
                                     <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16 relative z-10 text-left">
                                         <div className="md:w-3/5 text-left text-white">
-                                            <h1 className="text-6xl md:text-8xl font-black leading-none mb-6 italic uppercase tracking-tighter">PPDB <br/><span className="text-yellow-400">NURUL ULUM</span></h1>
+                                            <h1 className="text-6xl md:text-8xl font-black leading-none mb-6 italic uppercase tracking-tighter">PPDB <br/><span className="text-yellow-400">MTs - MA NULBAT</span></h1>
                                             <p className="text-xl opacity-90 mb-10 max-w-xl font-medium">Portal Resmi Penerimaan Peserta Didik Baru MTs-MA Nurul Ulum Batursari Mranggen.</p>
                                             <div className="flex flex-wrap gap-4">
                                                 <button onClick={() => setView('register')} className="bg-yellow-400 text-emerald-950 px-12 py-5 rounded-2xl font-black text-xl hover:bg-yellow-300 shadow-xl transition transform hover:-translate-y-1">DAFTAR SEKARANG</button>
@@ -373,7 +374,7 @@
                                             {previewPhoto ? <img src={previewPhoto} className="w-full h-full object-cover" /> : <div className="text-emerald-200 text-center"><i data-lucide="camera" className="mx-auto mb-2 text-emerald-300"></i><span className="text-[9px] font-black uppercase text-emerald-300">FOTO 3x4</span></div>}
                                             <input type="file" ref={inputRef} className="hidden" accept="image/*" onChange={handlePhotoSelection} />
                                         </div>
-                                        <p className="text-[10px] font-black text-emerald-600 mt-4 italic uppercase">Upload Foto Santri (Wajib)</p>
+                                        <p className="text-[10px] font-black text-emerald-600 mt-4 italic uppercase">Upload Foto Peserta Didik (Wajib)</p>
                                     </div>
                                     <div className="space-y-1"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Nama Lengkap</label><input required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="Nama Sesuai Ijazah" value={data.name} onChange={e => setData({...data, name: e.target.value})} /></div>
                                     <div className="grid grid-cols-2 gap-6 text-left">
@@ -583,9 +584,9 @@
                                 <img src="logo.jpg" className="w-full h-full object-contain" onError={(e) => e.target.src = "https://cdn-icons-png.flaticon.com/512/167/167707.png"} />
                             </div>
                             <div className="flex-1 text-center font-black italic">
-                                <h1 className="text-2xl font-black leading-tight uppercase">Panitia Penerimaan Peserta Didik Baru MTs-MA NULBAT</h1>
+                                <h1 className="text-2xl font-black leading-tight uppercase">Panitia Penerimaan Peserta Didik Baru</h1>
                                 <h2 className="text-3xl font-black text-emerald-800 leading-tight mt-1 uppercase">MTs - MA Nurul Ulum Batursari</h2>
-                                <p className="text-[11px] font-bold text-slate-500 mt-2 italic tracking-widest uppercase">Mranggen, Demak, Jawa Tengah 59567</p>
+                                <p className="text-[11px] font-bold text-slate-500 mt-2 italic tracking-widest uppercase">Jl. Mondosari No. 01 RT.01 RW.05, Batursari, Mranggen, Demak 59567</p>
                             </div>
                         </div>
 
@@ -703,4 +704,5 @@
     </script>
 </body>
 </html>
+
 
