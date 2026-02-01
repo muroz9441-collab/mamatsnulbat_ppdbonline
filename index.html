@@ -328,11 +328,11 @@
                 <div className="min-h-[80vh] flex items-center justify-center px-4 bg-slate-50 text-left">
                     <div className="max-w-md w-full bg-white rounded-[3.5rem] shadow-2xl p-12 border border-emerald-50 text-center">
                         <div className="bg-emerald-700 w-24 h-24 rounded-3xl flex items-center justify-center text-white mx-auto mb-10 shadow-lg text-center"><i data-lucide="user" className="w-10 h-10 text-white"></i></div>
-                        <h2 className="text-3xl font-black text-emerald-900 mb-10 uppercase italic tracking-tighter">LOGIN SISWA</h2>
+                        <h2 className="text-3xl font-black text-emerald-900 mb-10 uppercase italic tracking-tighter">Login Siswa</h2>
                         <form onSubmit={(e) => { e.preventDefault(); onLogin(e.target.phone.value, e.target.password.value); }} className="space-y-6">
                             <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">WhatsApp</label><input name="phone" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="08xxxxxxxxxx" type="tel" /></div>
                             <div className="text-left space-y-2"><label className="text-[10px] font-black uppercase text-slate-400 ml-1">Password</label><input name="password" type="password" required className="w-full p-5 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 focus:ring-emerald-500 text-slate-800" placeholder="••••••••" /></div>
-                            <button type="submit" className="w-full bg-emerald-700 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-800 shadow-xl uppercase text-white">MASUK SEKARANG</button>
+                            <button type="submit" className="w-full bg-emerald-700 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-800 shadow-xl uppercase text-white">Masuk Sekarang</button>
                             <button type="button" onClick={() => setView('register')} className="w-full text-xs font-black text-emerald-700 mt-6 hover:underline uppercase text-emerald-700">Daftar Akun Baru</button>
                         </form>
                     </div>
@@ -363,7 +363,7 @@
                 <div className="max-w-4xl mx-auto px-4 py-16 text-left">
                     <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-emerald-50 text-left">
                         <div className="header-gradient p-12 text-white text-center">
-                            <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8 text-white">FORMULIR PENDAFTARAN</h2>
+                            <h2 className="text-4xl font-black uppercase tracking-tighter italic mb-8 text-white">Formulir Pendaftaran</h2>
                             <div className="flex justify-center gap-4">{[1, 2, 3].map(i => <div key={i} className={`h-2 rounded-full transition-all duration-700 ${step >= i ? 'bg-yellow-400 w-24' : 'bg-emerald-900 w-12'}`}></div>)}</div>
                         </div>
                         <form onSubmit={(e) => onSubmit(e, step, setStep, data, rawFiles)} className="p-12 space-y-8 text-left">
@@ -414,7 +414,7 @@
                                     <div className="flex justify-between items-center pt-8 border-t">
                                         <button type="button" onClick={() => setStep(2)} className="text-slate-400 font-black uppercase text-xs" disabled={isSaving}>Kembali</button>
                                         <button type="submit" className={`bg-yellow-400 text-emerald-950 px-16 py-6 rounded-3xl font-black text-2xl shadow-2xl transition transform hover:scale-105 text-emerald-950 ${isSaving ? 'opacity-50' : ''}`} disabled={isSaving}>
-                                            {isSaving ? "MENYIMPAN..." : "SIMPAN PENDAFTARAN"}
+                                            {isSaving ? "Menyimpan..." : "Simpan Pendaftaran"}
                                         </button>
                                     </div>
                                 </div>
@@ -443,7 +443,7 @@
                         </div>
                         <div className="flex gap-4">
                             <button onClick={onPrint} className="bg-emerald-700 text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3 shadow-xl hover:bg-emerald-800 transition text-white">
-                                <i data-lucide="printer" className="w-5 h-5 text-white"></i> CETAK BUKTI
+                                <i data-lucide="printer" className="w-5 h-5 text-white"></i> Cetak Bukti
                             </button>
                             <button onClick={onLogout} className="p-5 bg-slate-50 text-slate-400 rounded-2xl border shadow-inner hover:text-red-500 transition text-slate-400"><i data-lucide="log-out"></i></button>
                         </div>
@@ -451,7 +451,7 @@
 
                     <div className="grid md:grid-cols-3 gap-10 text-left">
                         <div className="md:col-span-1 bg-white p-12 rounded-[3.5rem] shadow-xl border border-slate-50 flex flex-col items-center text-center">
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-10">STATUS SELEKSI</p>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-10">Status Seleksi</p>
                             <div className={`w-32 h-32 rounded-full flex items-center justify-center mb-8 border-4 shadow-inner ${data.status === 'Diterima' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-yellow-50 text-yellow-600 border-yellow-100'}`}>
                                 <i data-lucide={data.status === 'Diterima' ? "check-circle" : "clock"} className="w-16 h-16"></i>
                             </div>
@@ -460,7 +460,7 @@
                         
                         <div className="md:col-span-2 bg-white p-12 rounded-[3.5rem] shadow-xl border border-gray-100 text-left">
                             <h3 className="text-xl font-black text-slate-800 flex items-center gap-3 mb-10 italic uppercase underline underline-offset-8 decoration-emerald-100">
-                                <i data-lucide="file-text" className="text-emerald-600"></i> UPLOAD BERKAS (PERMANEN)
+                                <i data-lucide="file-text" className="text-emerald-600"></i> Upload Berkas (Permanen)
                             </h3>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                                 {['Ijazah', 'KK', 'Akta'].map(type => (
@@ -501,15 +501,15 @@
                         </div>
                     </div>
                     <div className="grid grid-cols-3 gap-8 text-center font-black italic">
-                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-emerald-700"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">TOTAL</p><h3 className="text-5xl text-emerald-900 font-black">{stats.total}</h3></div>
-                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-yellow-500"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">PENDING</p><h3 className="text-5xl text-yellow-600 font-black">{stats.pending}</h3></div>
-                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-blue-600"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">DITERIMA</p><h3 className="text-5xl text-blue-700 font-black">{stats.accepted}</h3></div>
+                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-emerald-700"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">Tolak</p><h3 className="text-5xl text-emerald-900 font-black">{stats.total}</h3></div>
+                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-yellow-500"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">Pending</p><h3 className="text-5xl text-yellow-600 font-black">{stats.pending}</h3></div>
+                        <div className="bg-white p-10 rounded-[2.5rem] shadow-lg border-l-8 border-blue-600"><p className="text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-black">Diterima</p><h3 className="text-5xl text-blue-700 font-black">{stats.accepted}</h3></div>
                     </div>
                     <div className="bg-white rounded-[3.5rem] shadow-2xl border border-slate-100 overflow-hidden text-left">
                         <div className="overflow-x-auto custom-scrollbar">
                             <table className="w-full text-left font-black italic text-slate-800">
                                 <thead className="bg-slate-50 border-b border-slate-100 text-[11px] font-black uppercase text-slate-400 tracking-widest text-left">
-                                    <tr><th className="px-10 py-8 text-left">PESERTA DIDIK</th><th className="px-10 py-8 text-left">NO REGISTRASI</th><th className="px-10 py-8 text-center">JENJANG</th><th className="px-10 py-8 text-left">STATUS</th><th className="px-10 py-8 text-right">AKSI</th></tr>
+                                    <tr><th className="px-10 py-8 text-left">Peserta Didik</th><th className="px-10 py-8 text-left">NO Registrasi</th><th className="px-10 py-8 text-center">Jenjang</th><th className="px-10 py-8 text-left">Status</th><th className="px-10 py-8 text-right">Aksi</th></tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-50 font-bold text-slate-800">
                                     {users.length === 0 ? (
@@ -535,7 +535,7 @@
             return (
                 <div className="min-h-[80vh] flex items-center justify-center px-4 bg-emerald-950 text-left">
                     <div className="max-w-md w-full bg-white rounded-[4rem] shadow-2xl p-12 text-center animate-fade-in text-slate-800 text-left">
-                        <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter italic text-emerald-900">AKSES PANITIA</h2>
+                        <h2 className="text-3xl font-black mb-10 uppercase tracking-tighter italic text-emerald-900">Akses Panitia</h2>
                         <form onSubmit={(e) => { e.preventDefault(); onLogin(e.target.pwd.value); }} className="space-y-6">
                             <input name="pwd" type="password" className="w-full p-6 rounded-3xl bg-slate-100 border-none outline-none text-center text-4xl font-black tracking-[0.5em] text-slate-800" placeholder="••••" autoFocus />
                             <button type="submit" className="w-full bg-emerald-900 text-white py-5 rounded-3xl font-black text-xl hover:bg-black transition shadow-xl uppercase text-white">MASUK PANEL</button>
@@ -558,9 +558,9 @@
                             <div className="space-y-2 text-left"><label className="text-[10px] font-black text-slate-400 uppercase ml-1">Edit No. Registrasi Resmi</label><input className="w-full p-5 rounded-2xl bg-slate-50 border-none outline-none font-black text-emerald-700 uppercase" value={regNum} onChange={e => setRegNum(e.target.value)} placeholder="001/MA/24" /></div>
                             <div className="space-y-2 text-left"><label className="text-[10px] font-black text-slate-400 uppercase ml-1">Pesan Panitia</label><textarea className="w-full p-6 rounded-2xl bg-slate-50 border-none outline-none font-bold text-base focus:ring-2 focus:ring-emerald-500 text-slate-800" rows="3" placeholder="Tulis instruksi revisi..." value={note} onChange={e => setNote(e.target.value)}></textarea></div>
                             <div className="grid grid-cols-3 gap-4 text-white text-xs font-black italic uppercase">
-                                <button onClick={() => onUpdate(applicant.id, 'Diterima')} className="bg-emerald-600 py-6 rounded-3xl shadow-lg text-white">TERIMA</button>
-                                <button onClick={() => onUpdate(applicant.id, 'Revisi')} className="bg-orange-500 py-6 rounded-3xl shadow-lg text-white">REVISI</button>
-                                <button onClick={() => onUpdate(applicant.id, 'Ditolak')} className="bg-red-600 py-6 rounded-3xl shadow-lg text-white">TOLAK</button>
+                                <button onClick={() => onUpdate(applicant.id, 'Diterima')} className="bg-emerald-600 py-6 rounded-3xl shadow-lg text-white">Terima</button>
+                                <button onClick={() => onUpdate(applicant.id, 'Revisi')} className="bg-orange-500 py-6 rounded-3xl shadow-lg text-white">Revisi</button>
+                                <button onClick={() => onUpdate(applicant.id, 'Ditolak')} className="bg-red-600 py-6 rounded-3xl shadow-lg text-white">Tolak</button>
                             </div>
                         </div>
                     </div>
@@ -572,9 +572,9 @@
             return (
                 <div className="w-full max-w-[210mm] mx-auto bg-white p-12 text-left text-slate-900 font-bold italic">
                     <div className="no-print mb-12 flex gap-4 text-left">
-                        <button onClick={onBack} className="bg-red-600 text-white px-10 py-4 rounded-xl font-black uppercase text-xs">BATAL</button>
+                        <button onClick={onBack} className="bg-red-600 text-white px-10 py-4 rounded-xl font-black uppercase text-xs">Batal</button>
                         <button onClick={() => window.print()} className="bg-emerald-800 text-white px-10 py-4 rounded-xl font-black uppercase text-xs shadow-xl flex items-center gap-3">
-                            <i data-lucide="printer"></i> CETAK KARTU
+                            <i data-lucide="printer"></i> Cetak Kartu
                         </button>
                     </div>
 
@@ -584,9 +584,9 @@
                                 <img src="logo.jpg" className="w-full h-full object-contain" onError={(e) => e.target.src = "https://cdn-icons-png.flaticon.com/512/167/167707.png"} />
                             </div>
                             <div className="flex-1 text-center font-black italic">
-                                <h1 className="text-2xl font-black leading-tight uppercase">Panitia Penerimaan Peserta Didik Baru</h1>
-                                <h2 className="text-3xl font-black text-emerald-800 leading-tight mt-1 uppercase">MTs - MA Nurul Ulum Batursari</h2>
-                                <p className="text-[11px] font-bold text-slate-500 mt-2 italic tracking-widest uppercase">Jl. Mondosari No. 01 RT.01 RW.05, Batursari, Mranggen, Demak 59567</p>
+                                 <h1 className="text-xl opacity-90 mb-10 max-w-xl font-medium">Panitia Penerimaan Peserta Didik Baru</h1>
+                                 <h2 className="text-xl opacity-90 mb-10 max-w-xl font-medium">MTs - MA Nurul Ulum Batursari</h2>                                                                                                    
+                                 <p className="text-[11px] font-bold text-slate-500 mt-2 italic tracking-widest uppercase">Jl. Mondosari No. 01 RT.01 RW.05, Batursari, Mranggen, Demak 59567</p>
                             </div>
                         </div>
 
@@ -622,7 +622,7 @@
                         <div className="grid grid-cols-2 gap-32 text-center text-sm font-black mt-20 uppercase italic">
                             <div className="space-y-24">
                                 <p className="text-center">Mengetahui, Panitia</p>
-                                <div className="border-t-2 border-slate-900 pt-3 mx-12 text-center">( ................................ )</div>
+                                <div className="border-t-2 border-slate-900 pt-3 mx-12 text-center">( Panitia )</div>
                             </div>
                             <div className="space-y-24">
                                 <p className="text-center">Calon Peserta Didik Baru,</p>
@@ -638,29 +638,29 @@
             return (
                 <div className="w-full max-w-[297mm] mx-auto bg-white p-12 text-left text-slate-900 font-bold italic border-2 border-black print-landscape text-slate-900">
                     <div className="no-print mb-12 flex gap-4 text-left">
-                        <button onClick={onBack} className="bg-red-600 text-white px-8 py-3 rounded-xl uppercase text-xs font-black">TUTUP</button>
-                        <button onClick={() => window.print()} className="bg-emerald-900 text-white px-8 py-3 rounded-xl uppercase shadow-xl text-xs font-black">CETAK LAPORAN</button>
+                        <button onClick={onBack} className="bg-red-600 text-white px-8 py-3 rounded-xl uppercase text-xs font-black">Tutup</button>
+                        <button onClick={() => window.print()} className="bg-emerald-900 text-white px-8 py-3 rounded-xl uppercase shadow-xl text-xs font-black">Cetak Laporan</button>
                     </div>
                     <div className="text-center border-b-8 border-double border-slate-900 pb-10 mb-14 italic text-center">
-                        <h1 className="text-3xl font-black uppercase text-center">LAPORAN REKAPITULASI PENDAFTARAN PESERTA DIDIK BARU</h1>
+                        <h1 className="text-3xl font-black uppercase text-center">Laporan Rekapitulasi Pendaftaran Pesrta Didik Baru</h1>
                         <h2 className="text-2xl text-emerald-800 mt-2 font-black text-center uppercase">MTs - MA Nurul Ulum Batursari Mranggen</h2>
-                        <p className="text-[11px] mt-6 font-bold text-slate-500 text-center uppercase">TP 2024/2025 • Filter: {filter} • Dicetak: {new Date().toLocaleString('id-ID')}</p>
+                        <p className="text-[11px] mt-6 font-bold text-slate-500 text-center uppercase">TP 2026/2027 • Filter: {filter} • Dicetak: {new Date().toLocaleString('id-ID')}</p>
                     </div>
                     <table className="w-full border-collapse border-2 border-black text-[7pt] font-bold italic text-left text-slate-900">
                         <thead>
                             <tr className="bg-slate-100 border-b-2 border-black uppercase text-black">
-                                <th className="border-r-2 border-black p-2 text-center w-8">NO</th>
-                                <th className="border-r-2 border-black p-2 text-left w-24">REGISTRASI</th>
-                                <th className="border-r-2 border-black p-2 text-left">NAMA LENGKAP</th>
+                                <th className="border-r-2 border-black p-2 text-center w-8">No</th>
+                                <th className="border-r-2 border-black p-2 text-left w-24">Registrasi</th>
+                                <th className="border-r-2 border-black p-2 text-left">Nama Lengkap</th>
                                 <th className="border-r-2 border-black p-2 text-center w-8">L/P</th>
                                 <th className="border-r-2 border-black p-2 text-left">TTL</th>
                                 <th className="border-r-2 border-black p-2 text-left">NIK/NISN</th>
-                                <th className="border-r-2 border-black p-2 text-center w-12">JENJANG</th>
-                                <th className="border-r-2 border-black p-2 text-left">SEKOLAH ASAL</th>
-                                <th className="border-r-2 border-black p-2 text-left">WALI/ORTU</th>
-                                <th className="border-r-2 border-black p-2 text-left w-40">ALAMAT</th>
+                                <th className="border-r-2 border-black p-2 text-center w-12">Jenjang</th>
+                                <th className="border-r-2 border-black p-2 text-left">Sekolah Asal</th>
+                                <th className="border-r-2 border-black p-2 text-left">Wali/Ortu</th>
+                                <th className="border-r-2 border-black p-2 text-left w-40">Alamat</th>
                                 <th className="border-r-2 border-black p-2 text-left">HP/WA</th>
-                                <th className="p-2 text-center">STATUS</th>
+                                <th className="p-2 text-center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -677,7 +677,7 @@
                                     <td className="border-r-2 border-black p-2 font-black">{u.parentName}</td>
                                     <td className="border-r-2 border-black p-2 text-[6pt] leading-tight">{u.address}</td>
                                     <td className="border-r-2 border-black p-2">{u.phone}</td>
-                                    <td className="p-2 text-center font-bold">{u.status || 'PENDING'}</td>
+                                    <td className="p-2 text-center font-bold">{u.status || 'Pending'}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -686,7 +686,7 @@
                         <div></div>
                         <div className="space-y-24 text-center">
                             <p>Mengetahui,<br/>Kepala Madrasah,</p>
-                            <div className="border-t-2 border-black pt-2 mx-10 text-center">( ................................ )</div>
+                            <div className="border-t-2 border-black pt-2 mx-10 text-center">( .................... )</div>
                         </div>
                         <div className="space-y-24 text-center">
                             <p>Mranggen, {new Date().toLocaleDateString('id-ID')}<br/>Panitia PPDB,</p>
@@ -704,5 +704,6 @@
     </script>
 </body>
 </html>
+
 
 
