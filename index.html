@@ -257,6 +257,13 @@
                                 <span className="text-[8px] md:text-[9px] font-bold text-emerald-300 uppercase tracking-widest text-left block">BATURSARI MRANGGEN DEMAK</span>
                             </div>
                         </div>
+                        <div className="bg-white p-1 rounded-full w-12 h-12 flex items-center justify-center border-2 border-emerald-400">
+                <img src="logo2.jpg" className="w-full h-full object-contain" onError={(e) => e.target.src = "https://cdn-icons-png.flaticon.com/512/167/167707.png"} />
+            </div>
+
+        </div>
+    </nav>
+);
                         <div className="hidden md:flex items-center gap-6">
                             <button onClick={() => setView('home')} className="font-bold hover:text-yellow-300 text-sm uppercase">Beranda</button>
                             {currentUser ? (
@@ -744,3 +751,4 @@
     </script>
 </body>
 </html>
+
