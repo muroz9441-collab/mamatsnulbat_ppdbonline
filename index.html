@@ -491,6 +491,8 @@
                                     <div className="grid grid-cols-2 gap-6">
                                         <div className="space-y-1"><label className="text-[10px] font-bold uppercase text-slate-400 ml-1 block">Tanggal Lahir</label><input required type="date" className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" value={data.birthDate} onChange={e => setData({...data, birthDate: e.target.value})} /></div>
                                         <div className="space-y-1"><label className="text-[10px] font-bold uppercase text-slate-400 ml-1 block">NIK (16 Digit)</label><input required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" maxLength={16} value={data.nik} onChange={e => setData({...data, nik: e.target.value})} /></div>
+                                        <div className="space-y-1"><label className="text-[10px] font-bold uppercase text-slate-400 ml-1 block">NISN (10 Digit)</label><input required className="w-full p-5 bg-slate-50 rounded-2xl font-bold border-none outline-none text-slate-800" maxLength={16} value={data.nisn} onChange={e => setData({...data, nisn: e.target.value})} /></div>
+                                    </div>
                                     </div>
                                     <button type="submit" className="bg-emerald-700 text-white px-12 py-5 rounded-2xl font-bold ml-auto block uppercase text-xs tracking-widest shadow-xl text-center">Lanjut Tahap 2</button>
                                 </div>
@@ -834,4 +836,5 @@
     </script>
 </body>
 </html>
+
 
