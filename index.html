@@ -664,6 +664,16 @@
         }
 
         function AdminModal({ applicant, note, setNote, regNum, setRegNum, onUpdate, onClose }) {
+          const [viewFile, setViewFile] = useState(null);
+
+            const handleDownload = (type, base64) => {
+                const link = document.createElement('a');
+                link.href = base64;
+                link.download = `PPDB_${applicant.name}_${type}.jpg`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            };  
             return (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-emerald-950/80 backdrop-blur-sm no-print animate-fade-in text-left">
                     <div className="bg-white w-full max-w-xl rounded-[4rem] shadow-2xl overflow-hidden text-slate-800">
@@ -835,6 +845,7 @@
     </script>
 </body>
 </html>
+
 
 
 
